@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finanzas | Jet Mach</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <div class="brand-badge">Jet Mach</div>
+          <h1>Finanzas</h1>
+          <p class="subtitle">Ingresos y gastos sin IVA de todas las líneas de negocio</p>
+        </div>
+
+        <div class="filters">
+          <label>
+            <span>Año</span>
+            <select id="yearFilter"></select>
+          </label>
+          <label>
+            <span>Mes</span>
+            <select id="monthFilter"></select>
+          </label>
+          <label>
+            <span>Línea de negocio</span>
+            <select id="lineFilter">
+              <option value="todas">Todas</option>
+              <option>Guarda</option>
+              <option>Handling</option>
+              <option>AOC</option>
+              <option>Corporativo</option>
+            </select>
+          </label>
+          <label>
+            <span>Avión</span>
+            <select id="planeFilter"></select>
+          </label>
+        </div>
+      </header>
+
+      <div class="status-strip">
+        <span class="status-dot"></span>
+        <span id="statusText">Cargando datos…</span>
+      </div>
+
+      <nav class="tabs" aria-label="Secciones">
+        <button class="tab active" data-tab="overview">Resumen</button>
+        <button class="tab" data-tab="planes">Aviones</button>
+        <button class="tab" data-tab="movements">Movimientos</button>
+        <button class="tab" data-tab="receivable">Por cobrar</button>
+      </nav>
+
+      <main>
+        <section id="overview" class="tab-panel active">
+          <section class="kpis-group">
+            <div class="summary-section">
+              <div class="section-header">
+                <h3>1. Ingresos</h3>
+              </div>
+              <div class="stacked-cards">
+                <article class="card highlight">
+                  <p>Total de ingresos</p>
+                  <h2 id="incomeValue">$0</h2>
+                  <small>Facturas emitidas, sin IVA</small>
+                </article>
+                <article class="card highlight">
+                  <p>Facturas de ingreso</p>
+                  <h2 id="incomeCount">0</h2>
+                  <small>registros</small>
+                </article>
+              </div>
+            </div>
+
+            <div class="summary-section">
+              <div class="section-header">
+                <h3>2. Gastos</h3>
+              </div>
+              <div class="stacked-cards">
+                <article class="card">
+                  <p>Total de gastos</p>
+                  <h2 id="expenseValue">$0</h2>
+                  <small id="expenseMeta">Fijos $0, variables $0</small>
+                </article>
+                <article class="card">
+                  <p>Facturas de gasto</p>
+                  <h2 id="expenseCount">0</h2>
+                  <small>registros pagados</small>
+                </article>
+              </div>
+            </div>
+
+            <div class="summary-section">
+              <div class="section-header">
+                <h3>3. Resultado</h3>
+              </div>
+              <div class="panel result-panel">
+                <div class="summary-row">
+                  <span>Ingreso total</span>
+                  <strong id="totalIncome">$0</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Gastos totales</span>
+                  <strong id="totalExpenses">$0</strong>
+                </div>
+                <div class="summary-row emphasis">
+                  <span>Resultado del periodo</span>
+                  <strong id="summaryMargin">$0</strong>
+                </div>
+                <div class="summary-row compact muted-row">
+                  <span>Margen sobre ingresos</span>
+                  <strong id="marginMeta">—</strong>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="summary-grid">
+            <div class="panel large">
+              <div class="panel-header">
+                <h3>Ingresos por línea de negocio</h3>
+              </div>
+              <div id="incomeLines" class="category-list"></div>
+            </div>
+
+            <div class="panel large">
+              <div class="panel-header">
+                <h3>Gastos por línea de negocio</h3>
+              </div>
+              <div id="expenseLines" class="category-list"></div>
+            </div>
+          </section>
+
+          <section class="charts-grid">
+            <div class="panel">
+              <div class="panel-header">
+                <h3>Ingresos por mes</h3>
+              </div>
+              <div id="incomeChart" class="chart-bars"></div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <h3>Gastos por mes</h3>
+              </div>
+              <div id="expenseChart" class="chart-bars"></div>
+            </div>
+          </section>
+
+          <section class="panel table-panel">
+            <div class="panel-header">
+              <h3>Detalle por mes</h3>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Mes</th>
+                  <th class="num">Ingresos</th>
+                  <th class="num">Gastos fijos</th>
+                  <th class="num">Gastos variables</th>
+                  <th class="num">Resultado</th>
+                  <th class="num">Margen</th>
+                </tr>
+              </thead>
+              <tbody id="monthlyTable"></tbody>
+            </table>
+          </section>
+          <p class="nota-tabla" id="qualityNote"></p>
+        </section>
+
+        <section id="planes" class="tab-panel">
+          <section class="panel table-panel">
+            <div class="panel-header">
+              <h3>Resultado por avión</h3>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Avión</th>
+                  <th class="num">Ingresos</th>
+                  <th class="num">Gastos fijos</th>
+                  <th class="num">Gastos variables</th>
+                  <th class="num">Resultado</th>
+                </tr>
+              </thead>
+              <tbody id="planeTable"></tbody>
+              <tfoot id="planeTotal"></tfoot>
+            </table>
+            <p class="nota-tabla">Los gastos que no son de un avión aparecen en Corporativo.</p>
+          </section>
+        </section>
+
+        <section id="movements" class="tab-panel">
+          <section class="panel table-panel">
+            <div class="panel-header">
+              <h3>Movimientos del periodo</h3>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Tipo</th>
+                  <th>Línea</th>
+                  <th>Avión</th>
+                  <th>Contraparte</th>
+                  <th>Concepto</th>
+                  <th class="num">Importe sin IVA</th>
+                </tr>
+              </thead>
+              <tbody id="movementTable"></tbody>
+            </table>
+            <p class="nota-tabla" id="movementNote"></p>
+          </section>
+        </section>
+
+        <section id="receivable" class="tab-panel">
+          <section class="panel table-panel">
+            <div class="panel-header">
+              <h3>Facturas por cobrar</h3>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Factura</th>
+                  <th>Vencimiento</th>
+                  <th>Estado</th>
+                  <th class="num">Importe sin IVA</th>
+                </tr>
+              </thead>
+              <tbody id="receivableTable"></tbody>
+              <tfoot id="receivableTotal"></tfoot>
+            </table>
+            <p class="nota-tabla">Esta sección no cambia con los filtros.</p>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="datos-ejemplo.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
