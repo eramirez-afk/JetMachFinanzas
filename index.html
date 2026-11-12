@@ -1,34 +1,3 @@
-Claude
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Index · HTML
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -688,6 +657,14 @@ tfoot td { font-weight: 700; border-top: 2px solid var(--ink); border-bottom: no
 th.num, td.num { text-align: right; }
 .filters select { min-width: 130px; }
  
+/* ---------- Vuelos AOC ---------- */
+.panel-header-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.link-btn { background: none; border: none; padding: 4px 6px; font: inherit; font-size: 13px; color: var(--brand); cursor: pointer; text-decoration: underline; }
+.link-btn.peligro { color: var(--bad); }
+.form-error { min-height: 20px; margin-top: 12px; font-size: 13px; color: var(--bad); }
+.cards-3 .card small { display: block; margin-top: 8px; }
+td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ 
 </style>
   </head>
   <body>
@@ -733,6 +710,7 @@ th.num, td.num { text-align: right; }
       <nav class="tabs" aria-label="Secciones">
         <button class="tab active" data-tab="overview">Resumen</button>
         <button class="tab" data-tab="planes">Aviones</button>
+        <button class="tab" data-tab="flights">Vuelos AOC</button>
         <button class="tab" data-tab="movements">Movimientos</button>
         <button class="tab" data-tab="receivable">Por cobrar</button>
       </nav>
@@ -876,6 +854,71 @@ th.num, td.num { text-align: right; }
           </section>
         </section>
  
+        <section id="flights" class="tab-panel">
+          <section class="cards-3">
+            <article class="card report-box">
+              <p>Horas voladas</p>
+              <h3 id="flightHours">—</h3>
+              <small id="flightCount"></small>
+            </article>
+            <article class="card report-box">
+              <p>Costo por hora</p>
+              <h3 id="flightCostPerHour">—</h3>
+              <small>Gastos variables entre horas voladas</small>
+            </article>
+            <article class="card report-box">
+              <p>Resultado del periodo</p>
+              <h3 id="flightResult">—</h3>
+              <small id="flightResultNote"></small>
+            </article>
+          </section>
+ 
+          <section class="panel table-panel">
+            <div class="panel-header panel-header-row">
+              <h3>Vuelos</h3>
+              <button id="addFlight" class="primary-button" type="button">Agregar vuelo</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Avión</th>
+                  <th>Ruta</th>
+                  <th class="num">Horas</th>
+                  <th>Piloto</th>
+                  <th>Copiloto</th>
+                  <th>Cliente</th>
+                  <th>Notas</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="flightTable"></tbody>
+            </table>
+            <p class="nota-tabla">Esta pestaña usa los filtros de año, mes y avión. Para agregar, corregir o anular un vuelo se pide la clave de captura.</p>
+          </section>
+ 
+          <section class="panel table-panel">
+            <div class="panel-header">
+              <h3>Movimientos de los aviones del AOC</h3>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Avión</th>
+                  <th>Tipo</th>
+                  <th>Concepto</th>
+                  <th>Contraparte</th>
+                  <th>Gasto</th>
+                  <th class="num">Importe sin IVA</th>
+                </tr>
+              </thead>
+              <tbody id="aocMovementTable"></tbody>
+            </table>
+            <p class="nota-tabla" id="aocMovementNote"></p>
+          </section>
+        </section>
+ 
         <section id="movements" class="tab-panel">
           <section class="panel table-panel">
             <div class="panel-header">
@@ -923,6 +966,58 @@ th.num, td.num { text-align: right; }
       </main>
     </div>
  
+    <div id="flightModal" class="modal hidden" aria-modal="true" role="dialog" aria-labelledby="flightModalTitle">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 id="flightModalTitle">Agregar vuelo</h3>
+          <button id="closeFlightModal" type="button" class="close-button" aria-label="Cerrar">×</button>
+        </div>
+        <div class="form-grid">
+          <label>
+            <span>Fecha</span>
+            <input id="fFecha" type="date" />
+          </label>
+          <label>
+            <span>Avión</span>
+            <select id="fMatricula"></select>
+          </label>
+          <label>
+            <span>Origen</span>
+            <input id="fOrigen" type="text" maxlength="4" placeholder="MMMY" autocapitalize="characters" />
+          </label>
+          <label>
+            <span>Destino</span>
+            <input id="fDestino" type="text" maxlength="4" placeholder="MMMX" autocapitalize="characters" />
+          </label>
+          <label>
+            <span>Horas de vuelo</span>
+            <input id="fHoras" type="number" min="0" max="24" step="0.1" placeholder="1.5" />
+          </label>
+          <label>
+            <span>Cliente</span>
+            <input id="fCliente" type="text" maxlength="120" />
+          </label>
+          <label>
+            <span>Piloto</span>
+            <input id="fPiloto" type="text" maxlength="120" />
+          </label>
+          <label>
+            <span>Copiloto</span>
+            <input id="fCopiloto" type="text" maxlength="120" />
+          </label>
+          <label class="full-width">
+            <span>Notas</span>
+            <input id="fNotas" type="text" maxlength="500" />
+          </label>
+        </div>
+        <p id="flightError" class="form-error" role="alert"></p>
+        <div class="modal-actions">
+          <button id="saveFlight" class="primary-button" type="button">Guardar</button>
+          <button id="cancelFlight" class="secondary-button" type="button">Cancelar</button>
+        </div>
+      </div>
+    </div>
+ 
     <script>
 /* Finanzas Jet Mach
  *
@@ -934,6 +1029,8 @@ th.num, td.num { text-align: right; }
  *   Cada movimiento trae: IDOrigen, Tipo, Fecha, Mes, Contraparte, Concepto,
  *   MontoSinIVA, TipoGasto, LineaNegocio, Matricula, TipoMatricula.
  *   Cada cuenta por cobrar trae: Cliente, Folio, Vencimiento, MontoSinIVA.
+ *   Cada vuelo trae: ID, Fecha, Matricula, Origen, Destino, Horas, Piloto, Copiloto, Cliente, Notas.
+ * - Los vuelos se capturan en la pestaña "Vuelos AOC" con una clave DISTINTA (clave de captura).
  * Ningún dato financiero se guarda en este repositorio.
  */
 const CONFIG = {
@@ -961,26 +1058,41 @@ const state = { anio: '', mes: 'todos', linea: 'todas', avion: 'todos', datos: n
  
 /* ---------- Datos ---------- */
  
-function pedirClave() {
+const CLAVES = {
+  lectura: { llave: 'jm_clave', mensaje: 'Clave de acceso a Finanzas Jet Mach' },
+  captura: { llave: 'jm_captura', mensaje: 'Clave de captura de vuelos' },
+};
+ 
+function pedirClave(tipo) {
+  const { llave, mensaje } = CLAVES[tipo];
   let clave = '';
-  try { clave = sessionStorage.getItem('jm_clave') || ''; } catch (e) { /* sin almacenamiento */ }
+  try { clave = sessionStorage.getItem(llave) || ''; } catch (e) { /* sin almacenamiento */ }
   if (!clave) {
-    clave = window.prompt('Clave de acceso a Finanzas Jet Mach') || '';
-    try { if (clave) sessionStorage.setItem('jm_clave', clave); } catch (e) { /* sin almacenamiento */ }
+    clave = window.prompt(mensaje) || '';
+    try { if (clave) sessionStorage.setItem(llave, clave); } catch (e) { /* sin almacenamiento */ }
   }
   return clave;
 }
  
-async function cargarDatos() {
-  if (!CONFIG.URL_DATOS) return { ...window.DATOS_EJEMPLO, esEjemplo: true };
+function olvidarClave(tipo) {
+  try { sessionStorage.removeItem(CLAVES[tipo].llave); } catch (e) { /* sin almacenamiento */ }
+}
+ 
+async function enviar(accion, datos, clave) {
   const respuesta = await fetch(CONFIG.URL_DATOS, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({ accion: 'finanzas', clave: pedirClave() }),
+    body: JSON.stringify({ accion, clave, ...datos }),
   });
-  const json = await respuesta.json();
+  return respuesta.json();
+}
+ 
+async function cargarDatos() {
+  if (!CONFIG.URL_DATOS) return { ...window.DATOS_EJEMPLO, esEjemplo: true };
+  const clave = pedirClave('lectura');
+  const json = await enviar('finanzas', {}, clave);
   if (!json.ok) {
-    try { sessionStorage.removeItem('jm_clave'); } catch (e) { /* sin almacenamiento */ }
+    olvidarClave('lectura');
     throw new Error(json.error || 'Acceso denegado');
   }
   return json;
@@ -996,6 +1108,7 @@ function normalizar(datos) {
     TipoMatricula: r.TipoMatricula || 'Sin clasificar',
   }));
   datos.porCobrar = (datos.porCobrar || []).map((c) => ({ ...c, MontoSinIVA: Number(c.MontoSinIVA) || 0 }));
+  datos.vuelos = (datos.vuelos || []).map((v) => ({ ...v, Horas: Number(v.Horas) || 0, Fecha: String(v.Fecha || '').slice(0, 10) }));
   return datos;
 }
  
@@ -1151,6 +1264,174 @@ function dibujarPorCobrar() {
   $('receivableTotal').innerHTML = `<tr><td colspan="4">Total por cobrar</td><td class="num">${dinero.format(suma(lista, (c) => c.MontoSinIVA))}</td></tr>`;
 }
  
+/* ---------- Vuelos AOC ---------- */
+ 
+const fmtHoras = (h) => `${Number(h || 0).toFixed(1)} h`;
+let vueloEnEdicion = null;
+ 
+function vuelosFiltrados() {
+  return state.datos.vuelos.filter((v) => {
+    if (state.anio !== 'todos' && !v.Fecha.startsWith(state.anio)) return false;
+    if (state.mes !== 'todos' && v.Fecha.slice(5, 7) !== state.mes) return false;
+    if (state.avion !== 'todos' && v.Matricula !== state.avion) return false;
+    return true;
+  });
+}
+ 
+function dibujarVuelos(filas) {
+  const vuelos = vuelosFiltrados();
+  const movsAoc = filas.filter((r) => AVIONES_AOC.includes(r.Matricula));
+  const horas = suma(vuelos, (v) => v.Horas);
+  const ingresos = suma(movsAoc.filter(esIngreso), (r) => r.MontoSinIVA);
+  const gastos = suma(movsAoc.filter(esGasto), (r) => r.MontoSinIVA);
+  const gastosVariables = suma(movsAoc.filter((r) => esGasto(r) && !esFijo(r)), (r) => r.MontoSinIVA);
+  const resultado = ingresos - gastos;
+ 
+  $('flightHours').textContent = horas > 0 ? fmtHoras(horas) : '—';
+  $('flightCount').textContent = `${vuelos.length} ${vuelos.length === 1 ? 'vuelo' : 'vuelos'}`;
+  $('flightCostPerHour').textContent = horas > 0 ? dinero.format(gastosVariables / horas) : '—';
+  const res = $('flightResult');
+  res.textContent = dinero.format(resultado);
+  res.className = clase(resultado);
+  $('flightResultNote').textContent = `Ingresos ${dinero.format(ingresos)}, gastos ${dinero.format(gastos)}`;
+ 
+  $('flightTable').innerHTML = vuelos.length ? vuelos.map((v) => `
+    <tr>
+      <td>${esc(v.Fecha)}</td><td>${esc(v.Matricula)}</td><td>${esc(v.Origen)} – ${esc(v.Destino)}</td>
+      <td class="num">${fmtHoras(v.Horas)}</td><td>${esc(v.Piloto) || '<span class="vacio">—</span>'}</td>
+      <td>${esc(v.Copiloto) || '<span class="vacio">—</span>'}</td><td>${esc(v.Cliente) || '<span class="vacio">—</span>'}</td>
+      <td class="notas" title="${esc(v.Notas)}">${esc(v.Notas) || '<span class="vacio">—</span>'}</td>
+      <td class="num"><button class="link-btn" type="button" data-accion="editar" data-id="${esc(v.ID)}">Editar</button>
+        <button class="link-btn peligro" type="button" data-accion="anular" data-id="${esc(v.ID)}">Anular</button></td>
+    </tr>`).join('')
+    : '<tr><td colspan="9" class="vacio-mensaje">No hay vuelos con estos filtros.</td></tr>';
+ 
+  const ordenadas = [...movsAoc].sort((a, b) => String(b.Fecha).localeCompare(String(a.Fecha)));
+  const mostradas = ordenadas.slice(0, 150);
+  $('aocMovementTable').innerHTML = mostradas.length ? mostradas.map((r) => `
+    <tr><td>${esc(r.Fecha)}</td><td>${esc(r.Matricula)}</td><td>${esc(r.Tipo)}</td><td>${esc(r.Concepto)}</td><td>${esc(r.Contraparte)}</td>
+    <td>${esFijo(r) ? 'Fijo' : esGasto(r) ? 'Variable' : '<span class="vacio">—</span>'}</td>
+    <td class="num ${esIngreso(r) ? 'positive' : ''}">${dinero.format(r.MontoSinIVA)}</td></tr>`).join('')
+    : '<tr><td colspan="7" class="vacio-mensaje">No hay movimientos con estos filtros.</td></tr>';
+  $('aocMovementNote').textContent = ordenadas.length > mostradas.length
+    ? `Se muestran los ${mostradas.length} más recientes de ${ordenadas.length}.`
+    : `${ordenadas.length} movimientos.`;
+}
+ 
+function abrirFormularioVuelo(vuelo) {
+  vueloEnEdicion = vuelo || null;
+  $('flightModalTitle').textContent = vuelo ? 'Corregir vuelo' : 'Agregar vuelo';
+  $('flightError').textContent = '';
+  $('fMatricula').innerHTML = AVIONES_AOC.map((m) => `<option value="${m}">${m}</option>`).join('');
+  const hoy = new Date().toISOString().slice(0, 10);
+  $('fFecha').value = vuelo ? vuelo.Fecha : hoy;
+  $('fMatricula').value = vuelo ? vuelo.Matricula : (AVIONES_AOC.includes(state.avion) ? state.avion : AVIONES_AOC[0]);
+  $('fOrigen').value = vuelo ? vuelo.Origen : '';
+  $('fDestino').value = vuelo ? vuelo.Destino : '';
+  $('fHoras').value = vuelo ? vuelo.Horas : '';
+  $('fCliente').value = vuelo ? vuelo.Cliente : '';
+  $('fPiloto').value = vuelo ? vuelo.Piloto : '';
+  $('fCopiloto').value = vuelo ? vuelo.Copiloto : '';
+  $('fNotas').value = vuelo ? vuelo.Notas : '';
+  $('flightModal').classList.remove('hidden');
+  $('fFecha').focus();
+}
+ 
+function cerrarFormularioVuelo() {
+  $('flightModal').classList.add('hidden');
+  vueloEnEdicion = null;
+}
+ 
+async function refrescar() {
+  state.datos = normalizar(await cargarDatos());
+  dibujarPorCobrar();
+  dibujarCalidad();
+  dibujar();
+}
+ 
+async function guardarVueloFormulario() {
+  const vuelo = {
+    ID: vueloEnEdicion ? vueloEnEdicion.ID : '',
+    Fecha: $('fFecha').value, Matricula: $('fMatricula').value,
+    Origen: $('fOrigen').value.trim().toUpperCase(), Destino: $('fDestino').value.trim().toUpperCase(),
+    Horas: $('fHoras').value, Cliente: $('fCliente').value, Piloto: $('fPiloto').value,
+    Copiloto: $('fCopiloto').value, Notas: $('fNotas').value,
+  };
+  const error = $('flightError');
+  if (!vuelo.Fecha || !vuelo.Origen || !vuelo.Destino || !vuelo.Horas) {
+    error.textContent = 'Faltan datos: fecha, origen, destino y horas son obligatorios.';
+    return;
+  }
+  error.textContent = '';
+ 
+  if (!CONFIG.URL_DATOS) {                                    // modo ejemplo: solo en memoria
+    vuelo.Horas = Number(vuelo.Horas) || 0;
+    if (vueloEnEdicion) Object.assign(state.datos.vuelos.find((v) => v.ID === vueloEnEdicion.ID), vuelo);
+    else state.datos.vuelos.push({ ...vuelo, ID: 'VUE-EJ-' + (state.datos.vuelos.length + 1) });
+    state.datos.vuelos.sort((a, b) => b.Fecha.localeCompare(a.Fecha));
+    cerrarFormularioVuelo();
+    dibujar();
+    return;
+  }
+ 
+  const clave = pedirClave('captura');
+  if (!clave) return;
+  $('saveFlight').disabled = true;
+  try {
+    const respuesta = await enviar('guardarVuelo', { vuelo }, clave);
+    if (!respuesta.ok) {
+      if (respuesta.error === 'Clave incorrecta') olvidarClave('captura');
+      error.textContent = respuesta.error || 'No se pudo guardar el vuelo.';
+      return;
+    }
+    await refrescar();
+    cerrarFormularioVuelo();
+  } catch (e) {
+    error.textContent = 'No se pudo conectar. Revisa tu internet e inténtalo de nuevo.';
+  } finally {
+    $('saveFlight').disabled = false;
+  }
+}
+ 
+async function anularVuelo(id) {
+  if (!window.confirm('¿Anular este vuelo? Dejará de contar en las horas, pero queda registrado en la hoja.')) return;
+  if (!CONFIG.URL_DATOS) {
+    state.datos.vuelos = state.datos.vuelos.filter((v) => v.ID !== id);
+    dibujar();
+    return;
+  }
+  const clave = pedirClave('captura');
+  if (!clave) return;
+  try {
+    const respuesta = await enviar('anularVuelo', { id }, clave);
+    if (!respuesta.ok) {
+      if (respuesta.error === 'Clave incorrecta') olvidarClave('captura');
+      window.alert(respuesta.error || 'No se pudo anular el vuelo.');
+      return;
+    }
+    await refrescar();
+  } catch (e) {
+    window.alert('No se pudo conectar. Revisa tu internet e inténtalo de nuevo.');
+  }
+}
+ 
+function activarVuelos() {
+  $('addFlight').addEventListener('click', () => abrirFormularioVuelo(null));
+  $('saveFlight').addEventListener('click', guardarVueloFormulario);
+  $('cancelFlight').addEventListener('click', cerrarFormularioVuelo);
+  $('closeFlightModal').addEventListener('click', cerrarFormularioVuelo);
+  $('flightModal').addEventListener('click', (e) => { if (e.target === $('flightModal')) cerrarFormularioVuelo(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('flightModal').classList.contains('hidden')) cerrarFormularioVuelo(); });
+  $('flightTable').addEventListener('click', (e) => {
+    const boton = e.target.closest('button[data-accion]');
+    if (!boton) return;
+    const vuelo = state.datos.vuelos.find((v) => v.ID === boton.dataset.id);
+    if (!vuelo) return;
+    if (boton.dataset.accion === 'editar') abrirFormularioVuelo(vuelo);
+    else anularVuelo(vuelo.ID);
+  });
+}
+ 
 function dibujarCalidad() {
   const n = state.datos.movimientos.filter((r) => r.TipoMatricula === 'Sin clasificar' || r.LineaNegocio === 'Sin clasificar').length;
   $('qualityNote').textContent = n
@@ -1166,6 +1447,7 @@ function dibujar() {
   dibujarMeses(filtrar({ ignorarMes: true }));
   dibujarAviones(filas);
   dibujarMovimientos(filas);
+  dibujarVuelos(filas);
 }
  
 function activarPestanas() {
@@ -1177,6 +1459,7 @@ function activarPestanas() {
  
 async function iniciar() {
   activarPestanas();
+  activarVuelos();
   try {
     state.datos = normalizar(await cargarDatos());
   } catch (error) {
