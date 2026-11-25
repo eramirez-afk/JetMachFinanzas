@@ -22,26 +22,26 @@
   --amber: #c98b2a;
   --shadow: 0 10px 30px rgba(16, 32, 25, 0.08);
 }
- 
+
 * { box-sizing: border-box; }
- 
+
 html, body {
   margin: 0;
   font-family: "Inter", sans-serif;
   background: var(--bg);
   color: var(--ink);
 }
- 
+
 body {
   min-height: 100vh;
 }
- 
+
 .app-shell {
   max-width: 1280px;
   margin: 0 auto;
   padding: 28px 20px 60px;
 }
- 
+
 .topbar {
   display: flex;
   justify-content: space-between;
@@ -54,7 +54,7 @@ body {
   border-radius: 22px;
   box-shadow: 0 6px 24px rgba(15, 107, 94, 0.04);
 }
- 
+
 .brand-badge {
   display: inline-flex;
   align-items: center;
@@ -68,19 +68,19 @@ body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
- 
+
 h1, h2, h3, p { margin: 0; }
- 
+
 h1 {
   font-size: clamp(32px, 4vw, 46px);
   line-height: 1.1;
 }
- 
+
 .subtitle {
   margin-top: 6px;
   color: var(--muted);
 }
- 
+
 .status-strip {
   display: inline-flex;
   align-items: center;
@@ -93,7 +93,7 @@ h1 {
   font-size: 13px;
   font-weight: 600;
 }
- 
+
 .status-dot {
   width: 10px;
   height: 10px;
@@ -101,14 +101,14 @@ h1 {
   background: var(--good);
   box-shadow: 0 0 0 4px rgba(14, 122, 98, 0.12);
 }
- 
+
 .filters {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
   align-items: end;
 }
- 
+
 .team-button,
 .primary-button,
 .secondary-button,
@@ -118,7 +118,7 @@ h1 {
   font: inherit;
   cursor: pointer;
 }
- 
+
 .team-button,
 .primary-button {
   background: var(--brand);
@@ -126,13 +126,13 @@ h1 {
   border-color: var(--brand);
   padding: 10px 16px;
 }
- 
+
 .secondary-button {
   background: white;
   color: var(--ink);
   padding: 10px 14px;
 }
- 
+
 .close-button {
   background: transparent;
   color: var(--muted);
@@ -140,7 +140,7 @@ h1 {
   font-size: 22px;
   line-height: 1;
 }
- 
+
 label {
   display: flex;
   flex-direction: column;
@@ -148,7 +148,7 @@ label {
   font-size: 12px;
   color: var(--muted);
 }
- 
+
 select {
   min-width: 140px;
   border: 1px solid var(--line);
@@ -158,14 +158,14 @@ select {
   padding: 10px 12px;
   font: inherit;
 }
- 
+
 .tabs {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
   margin-bottom: 20px;
 }
- 
+
 .tab {
   border: 1px solid var(--line);
   background: var(--panel);
@@ -176,33 +176,33 @@ select {
   cursor: pointer;
   transition: 0.2s ease;
 }
- 
+
 .tab.active {
   background: var(--brand);
   color: white;
   border-color: var(--brand);
 }
- 
+
 main {
   display: grid;
   gap: 20px;
 }
- 
+
 .tab-panel {
   display: none;
   gap: 20px;
 }
- 
+
 .tab-panel.active {
   display: grid;
 }
- 
+
 .kpis-group {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
- 
+
 .summary-section {
   display: grid;
   gap: 14px;
@@ -211,11 +211,11 @@ main {
   border: 1px solid rgba(15, 107, 94, 0.08);
   border-radius: 18px;
 }
- 
+
 .section-header {
   padding: 0 2px;
 }
- 
+
 .section-header h3 {
   font-size: 16px;
   color: var(--muted);
@@ -223,12 +223,12 @@ main {
   letter-spacing: 0.08em;
   font-weight: 700;
 }
- 
+
 .stacked-cards {
   display: grid;
   gap: 14px;
 }
- 
+
 .card {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -240,7 +240,7 @@ main {
   position: relative;
   overflow: hidden;
 }
- 
+
 .card::before {
   content: "";
   position: absolute;
@@ -249,27 +249,27 @@ main {
   height: 4px;
   background: linear-gradient(90deg, var(--brand), rgba(15, 107, 94, 0.15));
 }
- 
+
 .card:hover {
   transform: translateY(-2px);
   box-shadow: 0 14px 28px rgba(16, 32, 25, 0.09);
 }
- 
+
 .card.highlight {
   background: linear-gradient(135deg, #f2faf8, #ffffff);
 }
- 
+
 .card.accent {
   border-color: rgba(15, 107, 94, 0.45);
   background: linear-gradient(135deg, var(--brand-soft), #ffffff);
 }
- 
+
 .card p {
   font-size: 13px;
   color: var(--muted);
   margin-bottom: 10px;
 }
- 
+
 .card h2 {
   font-size: clamp(18px, 1.8vw, 30px);
   letter-spacing: -0.04em;
@@ -278,43 +278,43 @@ main {
   overflow: hidden;
   text-overflow: ellipsis;
 }
- 
+
 .card h3 {
   font-size: clamp(22px, 2vw, 30px);
   letter-spacing: -0.04em;
   line-height: 1.15;
 }
- 
+
 .card small {
   display: block;
   margin-top: 8px;
   color: var(--muted);
 }
- 
+
 .summary-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
- 
+
 .large {
   min-height: 220px;
 }
- 
+
 .result-panel {
   min-height: 100%;
   background: linear-gradient(135deg, #f7fbfa, #edf7f4);
   border: 1px solid rgba(15, 107, 94, 0.12);
 }
- 
+
 .compact {
   font-size: 14px;
 }
- 
+
 .muted-row {
   color: var(--muted);
 }
- 
+
 .panel {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -322,15 +322,15 @@ main {
   box-shadow: var(--shadow);
   padding: 18px;
 }
- 
+
 .panel-header {
   margin-bottom: 14px;
 }
- 
+
 .panel-header h3 {
   font-size: 18px;
 }
- 
+
 .summary-row {
   display: flex;
   justify-content: space-between;
@@ -339,30 +339,30 @@ main {
   border-top: 1px solid var(--line);
   color: var(--ink);
 }
- 
+
 .summary-row:first-of-type {
   border-top: none;
 }
- 
+
 .summary-row strong {
   font-size: 18px;
 }
- 
+
 .summary-row.emphasis {
   color: var(--brand);
   font-weight: 700;
 }
- 
+
 .category-list {
   display: grid;
   gap: 12px;
 }
- 
+
 .category-item {
   display: grid;
   gap: 8px;
 }
- 
+
 .category-top {
   display: flex;
   justify-content: space-between;
@@ -370,7 +370,7 @@ main {
   color: var(--ink);
   font-size: 14px;
 }
- 
+
 .progress {
   width: 100%;
   height: 10px;
@@ -378,33 +378,33 @@ main {
   border-radius: 999px;
   overflow: hidden;
 }
- 
+
 .progress > span {
   display: block;
   height: 100%;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--brand), #7ec7b7);
 }
- 
+
 .charts-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
 }
- 
+
 .chart-bars {
   display: grid;
   gap: 10px;
   min-height: 220px;
 }
- 
+
 .chart-bar-group {
   display: flex;
   align-items: end;
   gap: 8px;
   height: 180px;
 }
- 
+
 .chart-bar-col {
   flex: 1;
   min-width: 24px;
@@ -412,11 +412,11 @@ main {
   background: linear-gradient(180deg, #7bc1b1, var(--brand));
   position: relative;
 }
- 
+
 .chart-bar-col.alt {
   background: linear-gradient(180deg, #d59d4d, var(--amber));
 }
- 
+
 .chart-bar-col::after {
   content: attr(data-label);
   position: absolute;
@@ -426,81 +426,81 @@ main {
   font-size: 11px;
   color: var(--muted);
 }
- 
+
 .table-panel {
   overflow: auto;
 }
- 
+
 table {
   width: 100%;
   border-collapse: collapse;
   font-size: 14px;
 }
- 
+
 th, td {
   padding: 12px 10px;
   border-bottom: 1px solid var(--line);
   text-align: left;
 }
- 
+
 th {
   color: var(--muted);
   font-weight: 600;
 }
- 
+
 tbody tr:hover {
   background: var(--panel-alt);
 }
- 
+
 .positive { color: var(--good); }
 .negative { color: var(--bad); }
- 
+
 .cards-3 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
- 
+
 .report-box {
   min-height: 130px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
- 
+
 .report-summary {
   display: grid;
   gap: 12px;
 }
- 
+
 .report-summary-item {
   display: flex;
   justify-content: space-between;
   border-top: 1px solid var(--line);
   padding-top: 12px;
 }
- 
+
 .report-summary-item:first-child {
   border-top: none;
   padding-top: 0;
 }
- 
+
 .team-tab.hidden,
 .hidden {
   display: none !important;
 }
- 
+
 .capture-panel {
   display: grid;
   gap: 18px;
 }
- 
+
 .capture-mode-select {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
 }
- 
+
 .capture-mode {
   border: 1px solid var(--line);
   background: white;
@@ -509,29 +509,29 @@ tbody tr:hover {
   border-radius: 10px;
   cursor: pointer;
 }
- 
+
 .capture-mode.active {
   background: var(--brand);
   color: white;
   border-color: var(--brand);
 }
- 
+
 .capture-form {
   display: grid;
   grid-template-columns: repeat(2, minmax(200px, 1fr));
   gap: 16px;
 }
- 
+
 .capture-form label {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
- 
+
 .capture-form .full-width {
   grid-column: 1 / -1;
 }
- 
+
 .capture-form input,
 .capture-form select {
   border: 1px solid var(--line);
@@ -541,14 +541,14 @@ tbody tr:hover {
   background: white;
   color: var(--ink);
 }
- 
+
 .capture-actions {
   display: flex;
   gap: 12px;
   justify-content: flex-start;
   margin-top: 8px;
 }
- 
+
 .modal {
   position: fixed;
   inset: 0;
@@ -559,11 +559,11 @@ tbody tr:hover {
   padding: 20px;
   z-index: 50;
 }
- 
+
 .modal.hidden {
   display: none;
 }
- 
+
 .modal-card {
   width: min(560px, 100%);
   background: var(--panel);
@@ -572,30 +572,30 @@ tbody tr:hover {
   box-shadow: var(--shadow);
   padding: 20px;
 }
- 
+
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
 }
- 
+
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
 }
- 
+
 .form-grid label {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
- 
+
 .form-grid .full-width {
   grid-column: 1 / -1;
 }
- 
+
 .form-grid input {
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -604,38 +604,38 @@ tbody tr:hover {
   background: white;
   color: var(--ink);
 }
- 
+
 .modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
   margin-top: 20px;
 }
- 
+
 @media (max-width: 920px) {
   .kpis-group { grid-template-columns: 1fr; }
   .summary-grid, .charts-grid, .cards-3 { grid-template-columns: 1fr; }
 }
- 
+
 @media (max-width: 640px) {
   .topbar {
     flex-direction: column;
     align-items: flex-start;
   }
- 
+
   .kpis-group {
     grid-template-columns: 1fr;
   }
- 
+
   .filters {
     width: 100%;
   }
- 
+
   .filters label {
     flex: 1;
   }
 }
- 
+
 /* ---------- Ajustes para Finanzas Jet Mach (se suman al diseño base) ---------- */
 .chart-bars { padding-top: 24px; }
 .chart-bar-col::before {
@@ -651,12 +651,15 @@ tbody tr:hover {
 .chart-bar-group { margin-bottom: 28px; }
 tfoot td { font-weight: 700; border-top: 2px solid var(--ink); border-bottom: none; }
 .vacio { color: #b3c0be; }
+.moneda { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; }
+.moneda.mxn { background: #edf2f1; color: var(--muted); }
+.moneda.usd { background: #fff3dc; color: #8a5a10; }
 .nota-tabla { margin-top: 12px; font-size: 13px; color: var(--muted); }
 .estado-vencida { color: var(--bad); font-weight: 600; }
 .vacio-mensaje { padding: 18px 0; color: var(--muted); }
 th.num, td.num { text-align: right; }
 .filters select { min-width: 130px; }
- 
+
 /* ---------- Vuelos AOC ---------- */
 .panel-header-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .link-btn { background: none; border: none; padding: 4px 6px; font: inherit; font-size: 13px; color: var(--brand); cursor: pointer; text-decoration: underline; }
@@ -664,7 +667,7 @@ th.num, td.num { text-align: right; }
 .form-error { min-height: 20px; margin-top: 12px; font-size: 13px; color: var(--bad); }
 .cards-3 .card small { display: block; margin-top: 8px; }
 td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
- 
+
 </style>
   </head>
   <body>
@@ -675,7 +678,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
           <h1>Finanzas</h1>
           <p class="subtitle">Ingresos y gastos sin IVA de todas las líneas de negocio</p>
         </div>
- 
+
         <div class="filters">
           <label>
             <span>Año</span>
@@ -701,12 +704,12 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
           </label>
         </div>
       </header>
- 
+
       <div class="status-strip">
         <span class="status-dot"></span>
         <span id="statusText">Cargando datos…</span>
       </div>
- 
+
       <nav class="tabs" aria-label="Secciones">
         <button class="tab active" data-tab="overview">Resumen</button>
         <button class="tab" data-tab="planes">Aviones</button>
@@ -714,7 +717,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
         <button class="tab" data-tab="movements">Movimientos</button>
         <button class="tab" data-tab="receivable">Por cobrar</button>
       </nav>
- 
+
       <main>
         <section id="overview" class="tab-panel active">
           <section class="kpis-group">
@@ -735,7 +738,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
                 </article>
               </div>
             </div>
- 
+
             <div class="summary-section">
               <div class="section-header">
                 <h3>2. Gastos</h3>
@@ -753,7 +756,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
                 </article>
               </div>
             </div>
- 
+
             <div class="summary-section">
               <div class="section-header">
                 <h3>3. Resultado</h3>
@@ -778,7 +781,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
               </div>
             </div>
           </section>
- 
+
           <section class="summary-grid">
             <div class="panel large">
               <div class="panel-header">
@@ -786,7 +789,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
               </div>
               <div id="incomeLines" class="category-list"></div>
             </div>
- 
+
             <div class="panel large">
               <div class="panel-header">
                 <h3>Gastos por línea de negocio</h3>
@@ -794,7 +797,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
               <div id="expenseLines" class="category-list"></div>
             </div>
           </section>
- 
+
           <section class="charts-grid">
             <div class="panel">
               <div class="panel-header">
@@ -802,7 +805,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
               </div>
               <div id="incomeChart" class="chart-bars"></div>
             </div>
- 
+
             <div class="panel">
               <div class="panel-header">
                 <h3>Gastos por mes</h3>
@@ -810,7 +813,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
               <div id="expenseChart" class="chart-bars"></div>
             </div>
           </section>
- 
+
           <section class="panel table-panel">
             <div class="panel-header">
               <h3>Detalle por mes</h3>
@@ -831,7 +834,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
           </section>
           <p class="nota-tabla" id="qualityNote"></p>
         </section>
- 
+
         <section id="planes" class="tab-panel">
           <section class="panel table-panel">
             <div class="panel-header">
@@ -853,7 +856,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
             <p class="nota-tabla">Los gastos que no son de un avión aparecen en Corporativo.</p>
           </section>
         </section>
- 
+
         <section id="flights" class="tab-panel">
           <section class="cards-3">
             <article class="card report-box">
@@ -872,7 +875,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
               <small id="flightResultNote"></small>
             </article>
           </section>
- 
+
           <section class="panel table-panel">
             <div class="panel-header panel-header-row">
               <h3>Vuelos</h3>
@@ -896,7 +899,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
             </table>
             <p class="nota-tabla">Esta pestaña usa los filtros de año, mes y avión. Para agregar, corregir o anular un vuelo se pide la clave de captura.</p>
           </section>
- 
+
           <section class="panel table-panel">
             <div class="panel-header">
               <h3>Movimientos de los aviones del AOC</h3>
@@ -910,6 +913,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
                   <th>Concepto</th>
                   <th>Contraparte</th>
                   <th>Gasto</th>
+                  <th>Moneda</th>
                   <th class="num">Importe sin IVA</th>
                 </tr>
               </thead>
@@ -918,7 +922,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
             <p class="nota-tabla" id="aocMovementNote"></p>
           </section>
         </section>
- 
+
         <section id="movements" class="tab-panel">
           <section class="panel table-panel">
             <div class="panel-header">
@@ -933,6 +937,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
                   <th>Avión</th>
                   <th>Contraparte</th>
                   <th>Concepto</th>
+                  <th>Moneda</th>
                   <th class="num">Importe sin IVA</th>
                 </tr>
               </thead>
@@ -941,7 +946,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
             <p class="nota-tabla" id="movementNote"></p>
           </section>
         </section>
- 
+
         <section id="receivable" class="tab-panel">
           <section class="panel table-panel">
             <div class="panel-header">
@@ -965,7 +970,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
         </section>
       </main>
     </div>
- 
+
     <div id="flightModal" class="modal hidden" aria-modal="true" role="dialog" aria-labelledby="flightModalTitle">
       <div class="modal-card">
         <div class="modal-header">
@@ -1017,7 +1022,7 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
         </div>
       </div>
     </div>
- 
+
     <script>
 /* Finanzas Jet Mach
  *
@@ -1030,21 +1035,33 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
  *   MontoSinIVA, TipoGasto, LineaNegocio, Matricula, TipoMatricula.
  *   Cada cuenta por cobrar trae: Cliente, Folio, Vencimiento, MontoSinIVA.
  *   Cada vuelo trae: ID, Fecha, Matricula, Origen, Destino, Horas, Piloto, Copiloto, Cliente, Notas.
+ *   Cada total mensual de horas trae: Mes, Matricula, Horas (se usa solo si ese mes y avión no tienen vuelos capturados).
  * - Los vuelos se capturan en la pestaña "Vuelos AOC" con una clave DISTINTA (clave de captura).
  * Ningún dato financiero se guarda en este repositorio.
  */
 const CONFIG = {
   URL_DATOS: 'https://script.google.com/macros/s/AKfycbzqkft4Jq71AkOkQM3cNmcGhIRKBY6pZpAeEOvcKjyFgOEkyQiVIR_pMJdMAgfRiMMVww/exec',
 };
- 
+
 const MESES = {
   '01': 'Enero', '02': 'Febrero', '03': 'Marzo', '04': 'Abril', '05': 'Mayo', '06': 'Junio',
   '07': 'Julio', '08': 'Agosto', '09': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre',
 };
 const AVIONES_AOC = ['XADGL', 'XARHL', 'XABZN'];
 const LINEAS = ['Guarda', 'Handling', 'AOC', 'Corporativo'];
- 
+
 const dinero = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
+const dolares = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
+
+/* Celda de moneda: etiqueta MXN o USD (sin conversión) */
+function celdaMoneda(r) {
+  const m = String(r.Moneda || 'MXN').toUpperCase();
+  return `<td><span class="moneda ${m === 'USD' ? 'usd' : 'mxn'}">${esc(m)}</span></td>`;
+}
+/* Importe en su propia moneda: pesos con $, dólares con US$ */
+function importeConMoneda(r) {
+  return String(r.Moneda || 'MXN').toUpperCase() === 'USD' ? dolares.format(r.MontoSinIVA) : dinero.format(r.MontoSinIVA);
+}
 const $ = (id) => document.getElementById(id);
 const suma = (lista, f) => lista.reduce((total, x) => total + f(x), 0);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -1053,16 +1070,16 @@ const esGasto = (r) => r.Tipo === 'Gasto';
 const esFijo = (r) => esGasto(r) && r.TipoGasto === 'Fijo';
 const clase = (n) => (n >= 0 ? 'positive' : 'negative');
 const nombreMes = (clave) => MESES[clave.slice(5, 7)] || clave;
- 
+
 const state = { anio: '', mes: 'todos', linea: 'todas', avion: 'todos', datos: null };
- 
+
 /* ---------- Datos ---------- */
- 
+
 const CLAVES = {
   lectura: { llave: 'jm_clave', mensaje: 'Clave de acceso a Finanzas Jet Mach' },
   captura: { llave: 'jm_captura', mensaje: 'Clave de captura de vuelos' },
 };
- 
+
 function pedirClave(tipo) {
   const { llave, mensaje } = CLAVES[tipo];
   let clave = '';
@@ -1073,11 +1090,11 @@ function pedirClave(tipo) {
   }
   return clave;
 }
- 
+
 function olvidarClave(tipo) {
   try { sessionStorage.removeItem(CLAVES[tipo].llave); } catch (e) { /* sin almacenamiento */ }
 }
- 
+
 async function enviar(accion, datos, clave) {
   const respuesta = await fetch(CONFIG.URL_DATOS, {
     method: 'POST',
@@ -1086,7 +1103,7 @@ async function enviar(accion, datos, clave) {
   });
   return respuesta.json();
 }
- 
+
 async function cargarDatos() {
   if (!CONFIG.URL_DATOS) return { ...window.DATOS_EJEMPLO, esEjemplo: true };
   const clave = pedirClave('lectura');
@@ -1097,7 +1114,7 @@ async function cargarDatos() {
   }
   return json;
 }
- 
+
 function normalizar(datos) {
   datos.movimientos = (datos.movimientos || []).map((r) => ({
     ...r,
@@ -1108,12 +1125,13 @@ function normalizar(datos) {
     TipoMatricula: r.TipoMatricula || 'Sin clasificar',
   }));
   datos.porCobrar = (datos.porCobrar || []).map((c) => ({ ...c, MontoSinIVA: Number(c.MontoSinIVA) || 0 }));
+  datos.horasMensuales = (datos.horasMensuales || []).map((h) => ({ ...h, Horas: Number(h.Horas) || 0 }));
   datos.vuelos = (datos.vuelos || []).map((v) => ({ ...v, Horas: Number(v.Horas) || 0, Fecha: String(v.Fecha || '').slice(0, 10) }));
   return datos;
 }
- 
+
 /* ---------- Filtros ---------- */
- 
+
 function filtrar({ ignorarMes = false } = {}) {
   return state.datos.movimientos.filter((r) => {
     if (state.anio !== 'todos' && !r.Mes.startsWith(state.anio)) return false;
@@ -1123,7 +1141,7 @@ function filtrar({ ignorarMes = false } = {}) {
     return true;
   });
 }
- 
+
 function armarFiltros() {
   const movs = state.datos.movimientos;
   const anios = [...new Set(movs.map((r) => r.Mes.slice(0, 4)).filter(Boolean))].sort().reverse();
@@ -1131,10 +1149,10 @@ function armarFiltros() {
   $('yearFilter').innerHTML = anios.map((a) => `<option value="${esc(a)}">${esc(a)}</option>`).join('') + '<option value="todos">Todos</option>';
   $('monthFilter').innerHTML = '<option value="todos">Todos</option>' +
     Object.keys(MESES).map((m) => `<option value="${m}">${MESES[m]}</option>`).join('');
- 
+
   $('planeFilter').innerHTML = '<option value="todos">Todos</option>' +
     AVIONES_AOC.map((m) => `<option value="${esc(m)}">${esc(m)}</option>`).join('');
- 
+
   $('yearFilter').value = state.anio;
   ['yearFilter', 'monthFilter', 'lineFilter', 'planeFilter'].forEach((id) => $(id).addEventListener('change', () => {
     state.anio = $('yearFilter').value;
@@ -1144,9 +1162,9 @@ function armarFiltros() {
     dibujar();
   }));
 }
- 
+
 /* ---------- Dibujo ---------- */
- 
+
 function dibujarResumen(filas) {
   const ingresos = filas.filter(esIngreso);
   const gastos = filas.filter(esGasto);
@@ -1154,7 +1172,7 @@ function dibujarResumen(filas) {
   const totalGas = suma(gastos, (r) => r.MontoSinIVA);
   const fijos = suma(gastos.filter(esFijo), (r) => r.MontoSinIVA);
   const resultado = totalIng - totalGas;
- 
+
   $('incomeValue').textContent = dinero.format(totalIng);
   $('incomeCount').textContent = ingresos.length;
   $('expenseValue').textContent = dinero.format(totalGas);
@@ -1167,7 +1185,7 @@ function dibujarResumen(filas) {
   marcador.className = clase(resultado);
   $('marginMeta').textContent = totalIng > 0 ? `${(resultado / totalIng * 100).toFixed(1)} %` : '—';
 }
- 
+
 function listaPorLinea(idContenedor, filas) {
   const lineas = [...LINEAS];
   if (filas.some((r) => r.LineaNegocio === 'Sin clasificar')) lineas.push('Sin clasificar');
@@ -1183,7 +1201,7 @@ function listaPorLinea(idContenedor, filas) {
         </div>`).join('')
     : '<p class="vacio-mensaje">No hay movimientos con estos filtros.</p>';
 }
- 
+
 function dibujarBarras(idContenedor, valores, etiquetas, alt) {
   const contenedor = $(idContenedor);
   if (!valores.length) { contenedor.innerHTML = '<p class="vacio-mensaje">No hay movimientos con estos filtros.</p>'; return; }
@@ -1192,7 +1210,7 @@ function dibujarBarras(idContenedor, valores, etiquetas, alt) {
       <div class="chart-bar-col ${alt ? 'alt' : ''}" data-label="${esc(etiquetas[i])}" data-value="${v > 0 ? '$' + Math.round(v / 1000) + ' mil' : ''}"
            style="height:${Math.max(v / maximo * 100, 4)}%" title="${esc(etiquetas[i])}: ${dinero.format(v)}"></div>`).join('')}</div>`;
 }
- 
+
 function dibujarMeses(filasTodosMeses) {
   const claves = [...new Set(filasTodosMeses.map((r) => r.Mes))].sort();
   const porMes = claves.map((mes) => {
@@ -1205,7 +1223,7 @@ function dibujarMeses(filasTodosMeses) {
   const etiquetas = porMes.map((m) => nombreMes(m.mes).slice(0, 3));
   dibujarBarras('incomeChart', porMes.map((m) => m.ing), etiquetas, false);
   dibujarBarras('expenseChart', porMes.map((m) => m.gas), etiquetas, true);
- 
+
   const visibles = state.mes === 'todos' ? porMes : porMes.filter((m) => m.mes.slice(5, 7) === state.mes);
   $('monthlyTable').innerHTML = visibles.length ? visibles.map((m) => {
     const res = m.ing - m.gas;
@@ -1214,14 +1232,14 @@ function dibujarMeses(filasTodosMeses) {
       <td class="num ${clase(res)}">${m.ing > 0 ? (res / m.ing * 100).toFixed(1) + ' %' : '—'}</td></tr>`;
   }).join('') : '<tr><td colspan="6" class="vacio-mensaje">No hay movimientos con estos filtros.</td></tr>';
 }
- 
+
 function celda(n) { return n === 0 ? '<span class="vacio">—</span>' : dinero.format(n); }
- 
+
 function dibujarAviones(filas) {
   const grupos = AVIONES_AOC.map((m) => ({ nombre: m, f: (r) => r.Matricula === m }));
   grupos.push({ nombre: 'Handling, Guarda y Corporativo', f: (r) => !AVIONES_AOC.includes(r.Matricula) && r.TipoMatricula !== 'Sin clasificar' });
   if (filas.some((r) => r.TipoMatricula === 'Sin clasificar')) grupos.push({ nombre: 'Sin clasificar', f: (r) => r.TipoMatricula === 'Sin clasificar' });
- 
+
   let tI = 0, tF = 0, tV = 0;
   $('planeTable').innerHTML = grupos.map((g) => {
     const rs = filas.filter(g.f);
@@ -1237,20 +1255,21 @@ function dibujarAviones(filas) {
   const rt = tI - tF - tV;
   $('planeTotal').innerHTML = `<tr><td>Total</td><td class="num">${dinero.format(tI)}</td><td class="num">${dinero.format(tF)}</td><td class="num">${dinero.format(tV)}</td><td class="num ${clase(rt)}">${dinero.format(rt)}</td></tr>`;
 }
- 
+
 function dibujarMovimientos(filas) {
   const ordenadas = [...filas].sort((a, b) => String(b.Fecha).localeCompare(String(a.Fecha)));
   const mostradas = ordenadas.slice(0, 150);
   $('movementTable').innerHTML = mostradas.length ? mostradas.map((r) => `
     <tr><td>${esc(r.Fecha)}</td><td>${esc(r.Tipo)}</td><td>${esc(r.LineaNegocio)}</td><td>${AVIONES_AOC.includes(r.Matricula) ? esc(r.Matricula) : '<span class="vacio">—</span>'}</td>
     <td>${esc(r.Contraparte)}</td><td>${esc(r.Concepto)}</td>
-    <td class="num ${esIngreso(r) ? 'positive' : ''}">${dinero.format(r.MontoSinIVA)}</td></tr>`).join('')
-    : '<tr><td colspan="7" class="vacio-mensaje">No hay movimientos con estos filtros.</td></tr>';
+    ${celdaMoneda(r)}
+    <td class="num ${esIngreso(r) ? 'positive' : ''}">${importeConMoneda(r)}</td></tr>`).join('')
+    : '<tr><td colspan="8" class="vacio-mensaje">No hay movimientos con estos filtros.</td></tr>';
   $('movementNote').textContent = ordenadas.length > mostradas.length
     ? `Se muestran los ${mostradas.length} más recientes de ${ordenadas.length}.`
     : `${ordenadas.length} movimientos.`;
 }
- 
+
 function dibujarPorCobrar() {
   const hoy = new Date();
   const lista = [...state.datos.porCobrar].sort((a, b) => String(a.Vencimiento).localeCompare(String(b.Vencimiento)));
@@ -1263,12 +1282,12 @@ function dibujarPorCobrar() {
   }).join('') : '<tr><td colspan="5" class="vacio-mensaje">No hay facturas por cobrar.</td></tr>';
   $('receivableTotal').innerHTML = `<tr><td colspan="4">Total por cobrar</td><td class="num">${dinero.format(suma(lista, (c) => c.MontoSinIVA))}</td></tr>`;
 }
- 
+
 /* ---------- Vuelos AOC ---------- */
- 
+
 const fmtHoras = (h) => `${Number(h || 0).toFixed(1)} h`;
 let vueloEnEdicion = null;
- 
+
 function vuelosFiltrados() {
   return state.datos.vuelos.filter((v) => {
     if (state.anio !== 'todos' && !v.Fecha.startsWith(state.anio)) return false;
@@ -1277,24 +1296,38 @@ function vuelosFiltrados() {
     return true;
   });
 }
- 
+
+/* Horas = vuelos capturados + totales mensuales de los meses/aviones que no tienen vuelos capturados */
+function horasDelPeriodo(vuelos) {
+  const conVuelos = new Set(state.datos.vuelos.map((v) => `${v.Fecha.slice(0, 7)}|${v.Matricula}`));
+  const mensuales = state.datos.horasMensuales.filter((h) => {
+    if (conVuelos.has(`${h.Mes}|${h.Matricula}`)) return false;
+    if (state.anio !== 'todos' && !h.Mes.startsWith(state.anio)) return false;
+    if (state.mes !== 'todos' && h.Mes.slice(5, 7) !== state.mes) return false;
+    if (state.avion !== 'todos' && h.Matricula !== state.avion) return false;
+    return true;
+  });
+  return { horas: suma(vuelos, (v) => v.Horas) + suma(mensuales, (h) => h.Horas), mesesMensuales: mensuales.length };
+}
+
 function dibujarVuelos(filas) {
   const vuelos = vuelosFiltrados();
   const movsAoc = filas.filter((r) => AVIONES_AOC.includes(r.Matricula));
-  const horas = suma(vuelos, (v) => v.Horas);
+  const { horas, mesesMensuales } = horasDelPeriodo(vuelos);
   const ingresos = suma(movsAoc.filter(esIngreso), (r) => r.MontoSinIVA);
   const gastos = suma(movsAoc.filter(esGasto), (r) => r.MontoSinIVA);
   const gastosVariables = suma(movsAoc.filter((r) => esGasto(r) && !esFijo(r)), (r) => r.MontoSinIVA);
   const resultado = ingresos - gastos;
- 
+
   $('flightHours').textContent = horas > 0 ? fmtHoras(horas) : '—';
-  $('flightCount').textContent = `${vuelos.length} ${vuelos.length === 1 ? 'vuelo' : 'vuelos'}`;
+  $('flightCount').textContent = `${vuelos.length} ${vuelos.length === 1 ? 'vuelo capturado' : 'vuelos capturados'}` +
+    (mesesMensuales ? `, más ${mesesMensuales} ${mesesMensuales === 1 ? 'mes' : 'meses'} con horas del total mensual` : '');
   $('flightCostPerHour').textContent = horas > 0 ? dinero.format(gastosVariables / horas) : '—';
   const res = $('flightResult');
   res.textContent = dinero.format(resultado);
   res.className = clase(resultado);
   $('flightResultNote').textContent = `Ingresos ${dinero.format(ingresos)}, gastos ${dinero.format(gastos)}`;
- 
+
   $('flightTable').innerHTML = vuelos.length ? vuelos.map((v) => `
     <tr>
       <td>${esc(v.Fecha)}</td><td>${esc(v.Matricula)}</td><td>${esc(v.Origen)} – ${esc(v.Destino)}</td>
@@ -1305,19 +1338,20 @@ function dibujarVuelos(filas) {
         <button class="link-btn peligro" type="button" data-accion="anular" data-id="${esc(v.ID)}">Anular</button></td>
     </tr>`).join('')
     : '<tr><td colspan="9" class="vacio-mensaje">No hay vuelos con estos filtros.</td></tr>';
- 
+
   const ordenadas = [...movsAoc].sort((a, b) => String(b.Fecha).localeCompare(String(a.Fecha)));
   const mostradas = ordenadas.slice(0, 150);
   $('aocMovementTable').innerHTML = mostradas.length ? mostradas.map((r) => `
     <tr><td>${esc(r.Fecha)}</td><td>${esc(r.Matricula)}</td><td>${esc(r.Tipo)}</td><td>${esc(r.Concepto)}</td><td>${esc(r.Contraparte)}</td>
     <td>${esFijo(r) ? 'Fijo' : esGasto(r) ? 'Variable' : '<span class="vacio">—</span>'}</td>
-    <td class="num ${esIngreso(r) ? 'positive' : ''}">${dinero.format(r.MontoSinIVA)}</td></tr>`).join('')
-    : '<tr><td colspan="7" class="vacio-mensaje">No hay movimientos con estos filtros.</td></tr>';
+    ${celdaMoneda(r)}
+    <td class="num ${esIngreso(r) ? 'positive' : ''}">${importeConMoneda(r)}</td></tr>`).join('')
+    : '<tr><td colspan="8" class="vacio-mensaje">No hay movimientos con estos filtros.</td></tr>';
   $('aocMovementNote').textContent = ordenadas.length > mostradas.length
     ? `Se muestran los ${mostradas.length} más recientes de ${ordenadas.length}.`
     : `${ordenadas.length} movimientos.`;
 }
- 
+
 function abrirFormularioVuelo(vuelo) {
   vueloEnEdicion = vuelo || null;
   $('flightModalTitle').textContent = vuelo ? 'Corregir vuelo' : 'Agregar vuelo';
@@ -1336,19 +1370,19 @@ function abrirFormularioVuelo(vuelo) {
   $('flightModal').classList.remove('hidden');
   $('fFecha').focus();
 }
- 
+
 function cerrarFormularioVuelo() {
   $('flightModal').classList.add('hidden');
   vueloEnEdicion = null;
 }
- 
+
 async function refrescar() {
   state.datos = normalizar(await cargarDatos());
   dibujarPorCobrar();
   dibujarCalidad();
   dibujar();
 }
- 
+
 async function guardarVueloFormulario() {
   const vuelo = {
     ID: vueloEnEdicion ? vueloEnEdicion.ID : '',
@@ -1363,7 +1397,7 @@ async function guardarVueloFormulario() {
     return;
   }
   error.textContent = '';
- 
+
   if (!CONFIG.URL_DATOS) {                                    // modo ejemplo: solo en memoria
     vuelo.Horas = Number(vuelo.Horas) || 0;
     if (vueloEnEdicion) Object.assign(state.datos.vuelos.find((v) => v.ID === vueloEnEdicion.ID), vuelo);
@@ -1373,7 +1407,7 @@ async function guardarVueloFormulario() {
     dibujar();
     return;
   }
- 
+
   const clave = pedirClave('captura');
   if (!clave) return;
   $('saveFlight').disabled = true;
@@ -1392,7 +1426,7 @@ async function guardarVueloFormulario() {
     $('saveFlight').disabled = false;
   }
 }
- 
+
 async function anularVuelo(id) {
   if (!window.confirm('¿Anular este vuelo? Dejará de contar en las horas, pero queda registrado en la hoja.')) return;
   if (!CONFIG.URL_DATOS) {
@@ -1414,7 +1448,7 @@ async function anularVuelo(id) {
     window.alert('No se pudo conectar. Revisa tu internet e inténtalo de nuevo.');
   }
 }
- 
+
 function activarVuelos() {
   $('addFlight').addEventListener('click', () => abrirFormularioVuelo(null));
   $('saveFlight').addEventListener('click', guardarVueloFormulario);
@@ -1431,14 +1465,14 @@ function activarVuelos() {
     else anularVuelo(vuelo.ID);
   });
 }
- 
+
 function dibujarCalidad() {
   const n = state.datos.movimientos.filter((r) => r.TipoMatricula === 'Sin clasificar' || r.LineaNegocio === 'Sin clasificar').length;
   $('qualityNote').textContent = n
     ? `${n} movimientos sin clasificar. Corrígelos en la plataforma de facturas para que cuenten en su línea y su avión.`
     : 'Todos los movimientos están clasificados.';
 }
- 
+
 function dibujar() {
   const filas = filtrar();
   dibujarResumen(filas);
@@ -1449,14 +1483,14 @@ function dibujar() {
   dibujarMovimientos(filas);
   dibujarVuelos(filas);
 }
- 
+
 function activarPestanas() {
   document.querySelectorAll('.tab').forEach((boton) => boton.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach((b) => b.classList.toggle('active', b === boton));
     document.querySelectorAll('.tab-panel').forEach((p) => p.classList.toggle('active', p.id === boton.dataset.tab));
   }));
 }
- 
+
 async function iniciar() {
   activarPestanas();
   activarVuelos();
@@ -1475,10 +1509,9 @@ async function iniciar() {
   dibujarCalidad();
   dibujar();
 }
- 
+
 iniciar();
- 
+
 </script>
   </body>
 </html>
-
