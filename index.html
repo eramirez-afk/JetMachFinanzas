@@ -668,6 +668,86 @@ th.num, td.num { text-align: right; }
 .cards-3 .card small { display: block; margin-top: 8px; }
 td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
+.panel-total { margin-left: 8px; font-size: 15px; font-weight: 700; color: var(--brand); }
+.etiqueta-campo { display: block; margin-bottom: 6px; font-size: 12px; color: var(--muted); }
+.tiempo { display: flex; align-items: center; gap: 8px; }
+.tiempo input { width: 90px; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 18px; text-align: center; background: white; color: var(--ink); }
+.tiempo span { color: var(--muted); font-weight: 600; }
+.opcionales summary { cursor: pointer; color: var(--brand); font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+.opcionales .form-grid { margin-top: 8px; }
+
+/* ---------- Barra de estado y exportar ---------- */
+.barra-estado { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+.barra-estado .status-strip { margin: 0; }
+.exportar { display: flex; gap: 8px; flex-wrap: wrap; }
+.solo-impresion { display: none; }
+
+/* ---------- Comparativos ---------- */
+.delta { white-space: nowrap; font-weight: 600; }
+.delta.bien { color: var(--good); }
+.delta.mal { color: var(--bad); }
+.delta.igual { color: var(--muted); font-weight: 400; }
+tr.fila-total td { font-weight: 700; border-top: 2px solid var(--ink); }
+
+/* ---------- Dólares ---------- */
+.usd-fila { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.usd-fila > div { padding: 12px 14px; background: #fff8ea; border: 1px solid #f1dfb8; border-radius: 12px; }
+.usd-fila span { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+.usd-fila strong { font-size: 20px; letter-spacing: -0.02em; }
+
+/* ---------- Categorías ---------- */
+.dos-col { grid-template-columns: 1fr 1fr; column-gap: 28px; }
+
+/* ---------- Búsqueda ---------- */
+.busqueda { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.busqueda input { flex: 1; min-width: 220px; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; background: white; color: var(--ink); }
+.busqueda select { min-width: 170px; }
+
+/* ---------- Calidad de datos ---------- */
+#qualityDetails summary { cursor: pointer; color: var(--brand); font-weight: 600; margin: 8px 0 12px; }
+.problema { display: inline-block; margin: 0 4px 4px 0; padding: 2px 8px; border-radius: 999px; background: #fdecea; color: var(--bad); font-size: 12px; font-weight: 600; }
+
+/* ---------- Semáforo de por cobrar ---------- */
+.punto { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+.punto.rojo { background: var(--bad); }
+.punto.ambar { background: var(--amber); }
+.punto.verde { background: var(--good); }
+.semaforo.rojo { border-color: rgba(190, 74, 63, 0.35); }
+.semaforo.ambar { border-color: rgba(201, 139, 42, 0.45); }
+.semaforo.verde { border-color: rgba(14, 122, 98, 0.35); }
+.estado-pronto { color: #8a5a10; font-weight: 600; }
+
+/* ---------- Gráfica de líneas ---------- */
+.leyenda { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 8px; font-size: 13px; color: var(--ink); }
+.leyenda i { display: inline-block; width: 18px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+.grafica-lineas { position: relative; margin-bottom: 14px; }
+.grafica-lineas svg { width: 100%; height: auto; display: block; }
+.grafica-lineas .eje { font-size: 11px; fill: #627271; }
+.grafica-lineas .rejilla { stroke: #e6ede8; stroke-width: 1; }
+.grafica-lineas .etiqueta-serie { font-size: 12px; font-weight: 700; fill: #1c2b2c; }
+.tooltip-grafica { position: absolute; pointer-events: none; background: #1c2b2c; color: #fff; padding: 8px 10px; border-radius: 8px; font-size: 12px; line-height: 1.5; white-space: nowrap; z-index: 5; box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
+td small.sub { display: block; font-size: 11px; color: var(--muted); font-weight: 400; }
+
+@media (max-width: 920px) {
+  .usd-fila { grid-template-columns: 1fr; }
+  .dos-col { grid-template-columns: 1fr; }
+}
+
+/* ---------- Impresión / PDF ---------- */
+@media print {
+  body { background: white; }
+  .tabs, .exportar, .modal, .status-strip, #addFlight, .busqueda, .link-btn, #qualityPanel, .team-button { display: none !important; }
+  .app-shell { padding: 0; max-width: none; }
+  .topbar { box-shadow: none; border: none; padding: 0 0 8px; }
+  .card, .panel { box-shadow: none; break-inside: avoid; }
+  .card:hover { transform: none; }
+  .solo-impresion { display: block; margin: 0 0 12px; color: var(--muted); font-size: 12px; }
+  .tab-panel { gap: 12px; }
+  #qualityDetails { display: none; }
+}
+
+.sub-inline { font-size: 11px; color: var(--muted); font-weight: 400; margin-left: 4px; }
+
 </style>
   </head>
   <body>
@@ -705,10 +785,17 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
         </div>
       </header>
 
-      <div class="status-strip">
-        <span class="status-dot"></span>
-        <span id="statusText">Cargando datos…</span>
+      <div class="barra-estado">
+        <div class="status-strip">
+          <span class="status-dot"></span>
+          <span id="statusText">Cargando datos…</span>
+        </div>
+        <div class="exportar">
+          <button id="exportExcel" class="secondary-button" type="button">Exportar a Excel</button>
+          <button id="exportPdf" class="secondary-button" type="button">Imprimir / PDF</button>
+        </div>
       </div>
+      <p class="solo-impresion" id="printInfo"></p>
 
       <nav class="tabs" aria-label="Secciones">
         <button class="tab active" data-tab="overview">Resumen</button>
@@ -747,12 +834,17 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
                 <article class="card">
                   <p>Total de gastos</p>
                   <h2 id="expenseValue">$0</h2>
-                  <small id="expenseMeta">Fijos $0, variables $0</small>
+                  <small id="expenseMeta">0 facturas pagadas</small>
                 </article>
                 <article class="card">
-                  <p>Facturas de gasto</p>
-                  <h2 id="expenseCount">0</h2>
-                  <small>registros pagados</small>
+                  <p>Gastos variables</p>
+                  <h2 id="variableValue">$0</h2>
+                  <small id="variableMeta">—</small>
+                </article>
+                <article class="card">
+                  <p>Gastos fijos</p>
+                  <h2 id="fixedValue">$0</h2>
+                  <small id="fixedMeta">—</small>
                 </article>
               </div>
             </div>
@@ -770,6 +862,14 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
                   <span>Gastos totales</span>
                   <strong id="totalExpenses">$0</strong>
                 </div>
+                <div class="summary-row compact muted-row">
+                  <span>· Variables</span>
+                  <strong id="totalVariable">$0</strong>
+                </div>
+                <div class="summary-row compact muted-row">
+                  <span>· Fijos</span>
+                  <strong id="totalFixed">$0</strong>
+                </div>
                 <div class="summary-row emphasis">
                   <span>Resultado del periodo</span>
                   <strong id="summaryMargin">$0</strong>
@@ -780,6 +880,33 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
                 </div>
               </div>
             </div>
+          </section>
+
+          <section class="panel table-panel" id="comparePanel">
+            <div class="panel-header">
+              <h3 id="compareTitle">Mes actual contra mes anterior</h3>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th class="num" id="compareHeadNow">Actual</th>
+                  <th class="num" id="compareHeadPrev">Anterior</th>
+                  <th class="num">Cambio</th>
+                  <th class="num">%</th>
+                </tr>
+              </thead>
+              <tbody id="compareTable"></tbody>
+            </table>
+            <p class="nota-tabla" id="compareNote"></p>
+          </section>
+
+          <section class="panel hidden" id="usdPanel">
+            <div class="panel-header">
+              <h3>Movimientos en dólares</h3>
+            </div>
+            <div class="usd-fila" id="usdBody"></div>
+            <p class="nota-tabla">Estos movimientos no se suman a los totales en pesos del resto de la página.</p>
           </section>
 
           <section class="summary-grid">
@@ -796,6 +923,30 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
               </div>
               <div id="expenseLines" class="category-list"></div>
             </div>
+          </section>
+
+          <section class="summary-grid">
+            <div class="panel large">
+              <div class="panel-header">
+                <h3>Gastos variables <span id="variableTotalTitle" class="panel-total"></span></h3>
+              </div>
+              <div id="variableList" class="category-list"></div>
+            </div>
+
+            <div class="panel large">
+              <div class="panel-header">
+                <h3>Gastos fijos <span id="fixedTotalTitle" class="panel-total"></span></h3>
+              </div>
+              <div id="fixedList" class="category-list"></div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header">
+              <h3>Gastos por categoría <span id="categoryTotalTitle" class="panel-total"></span></h3>
+            </div>
+            <div id="categoryList" class="category-list dos-col"></div>
+            <p class="nota-tabla">La categoría se decide por el nombre del proveedor y el concepto. Lo que no se reconoce queda en "Otros".</p>
           </section>
 
           <section class="charts-grid">
@@ -832,7 +983,30 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
               <tbody id="monthlyTable"></tbody>
             </table>
           </section>
-          <p class="nota-tabla" id="qualityNote"></p>
+          <section class="panel table-panel" id="qualityPanel">
+            <div class="panel-header">
+              <h3>Calidad de los datos</h3>
+            </div>
+            <p class="nota-tabla" id="qualityNote"></p>
+            <details id="qualityDetails" class="hidden">
+              <summary>Ver los movimientos por corregir</summary>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Tipo</th>
+                    <th>Contraparte</th>
+                    <th>Concepto</th>
+                    <th class="num">Importe</th>
+                    <th>Folio</th>
+                    <th>Qué falta</th>
+                  </tr>
+                </thead>
+                <tbody id="qualityTable"></tbody>
+              </table>
+              <p class="nota-tabla" id="qualityMore"></p>
+            </details>
+          </section>
         </section>
 
         <section id="planes" class="tab-panel">
@@ -855,6 +1029,26 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
             </table>
             <p class="nota-tabla">Los gastos que no son de un avión aparecen en Corporativo.</p>
           </section>
+
+          <section class="panel table-panel">
+            <div class="panel-header">
+              <h3 id="planeCompareTitle">Cambio contra el mes anterior</h3>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Avión</th>
+                  <th class="num">Ingresos</th>
+                  <th class="num">Gastos</th>
+                  <th class="num">Resultado</th>
+                  <th class="num" id="planeCompareHeadPrev">Resultado anterior</th>
+                  <th class="num">Cambio</th>
+                </tr>
+              </thead>
+              <tbody id="planeCompareTable"></tbody>
+            </table>
+            <p class="nota-tabla" id="planeCompareNote"></p>
+          </section>
         </section>
 
         <section id="flights" class="tab-panel">
@@ -874,6 +1068,26 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
               <h3 id="flightResult">—</h3>
               <small id="flightResultNote"></small>
             </article>
+          </section>
+
+          <section class="panel table-panel">
+            <div class="panel-header">
+              <h3>Costo por hora por mes</h3>
+            </div>
+            <div id="cphLegend" class="leyenda"></div>
+            <div id="cphChart" class="grafica-lineas"></div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Mes</th>
+                  <th class="num">XADGL</th>
+                  <th class="num">XARHL</th>
+                  <th class="num">XABZN</th>
+                </tr>
+              </thead>
+              <tbody id="cphTable"></tbody>
+            </table>
+            <p class="nota-tabla">Costo por hora = gastos variables del avión ÷ horas voladas del mes. Usa las horas capturadas y, si un mes no tiene vuelos capturados, el total mensual. Solo cambia con el filtro de año.</p>
           </section>
 
           <section class="panel table-panel">
@@ -928,6 +1142,14 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
             <div class="panel-header">
               <h3>Movimientos del periodo</h3>
             </div>
+            <div class="busqueda">
+              <input id="movSearch" type="search" placeholder="Buscar proveedor, concepto, avión, categoría…" autocomplete="off" />
+              <select id="movTipo" aria-label="Tipo de movimiento">
+                <option value="">Ingresos y gastos</option>
+                <option value="Ingreso">Solo ingresos</option>
+                <option value="Gasto">Solo gastos</option>
+              </select>
+            </div>
             <table>
               <thead>
                 <tr>
@@ -948,6 +1170,24 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
         </section>
 
         <section id="receivable" class="tab-panel">
+          <section class="cards-3">
+            <article class="card report-box semaforo rojo">
+              <p><span class="punto rojo"></span> Vencidas</p>
+              <h3 id="overdueValue">$0</h3>
+              <small id="overdueMeta"></small>
+            </article>
+            <article class="card report-box semaforo ambar">
+              <p><span class="punto ambar"></span> Vencen en 7 días o menos</p>
+              <h3 id="soonValue">$0</h3>
+              <small id="soonMeta"></small>
+            </article>
+            <article class="card report-box semaforo verde">
+              <p><span class="punto verde"></span> Al corriente</p>
+              <h3 id="okValue">$0</h3>
+              <small id="okMeta"></small>
+            </article>
+          </section>
+
           <section class="panel table-panel">
             <div class="panel-header">
               <h3>Facturas por cobrar</h3>
@@ -988,37 +1228,49 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
           </label>
           <label>
             <span>Origen</span>
-            <input id="fOrigen" type="text" maxlength="4" placeholder="MMMY" autocapitalize="characters" />
+            <input id="fOrigen" type="text" maxlength="4" placeholder="MMMY" autocapitalize="characters" list="aeropuertos" />
           </label>
           <label>
             <span>Destino</span>
-            <input id="fDestino" type="text" maxlength="4" placeholder="MMMX" autocapitalize="characters" />
+            <input id="fDestino" type="text" maxlength="4" placeholder="MMMX" autocapitalize="characters" list="aeropuertos" />
           </label>
-          <label>
-            <span>Horas de vuelo</span>
-            <input id="fHoras" type="number" min="0" max="24" step="0.1" placeholder="1.5" />
-          </label>
-          <label>
-            <span>Cliente</span>
-            <input id="fCliente" type="text" maxlength="120" />
-          </label>
-          <label>
-            <span>Piloto</span>
-            <input id="fPiloto" type="text" maxlength="120" />
-          </label>
-          <label>
-            <span>Copiloto</span>
-            <input id="fCopiloto" type="text" maxlength="120" />
-          </label>
-          <label class="full-width">
-            <span>Notas</span>
-            <input id="fNotas" type="text" maxlength="500" />
-          </label>
+          <div class="full-width">
+            <span class="etiqueta-campo">Tiempo de vuelo</span>
+            <div class="tiempo">
+              <input id="fHoras" type="number" inputmode="numeric" min="0" max="24" step="1" placeholder="0" aria-label="Horas" />
+              <span>h</span>
+              <input id="fMinutos" type="number" inputmode="numeric" min="0" max="59" step="1" placeholder="00" aria-label="Minutos" />
+              <span>min</span>
+            </div>
+          </div>
+          <details class="full-width opcionales">
+            <summary>Más datos (opcional)</summary>
+            <div class="form-grid">
+              <label>
+                <span>Cliente</span>
+                <input id="fCliente" type="text" maxlength="120" />
+              </label>
+              <label>
+                <span>Piloto</span>
+                <input id="fPiloto" type="text" maxlength="120" />
+              </label>
+              <label>
+                <span>Copiloto</span>
+                <input id="fCopiloto" type="text" maxlength="120" />
+              </label>
+              <label>
+                <span>Notas</span>
+                <input id="fNotas" type="text" maxlength="500" />
+              </label>
+            </div>
+          </details>
         </div>
+        <datalist id="aeropuertos"></datalist>
         <p id="flightError" class="form-error" role="alert"></p>
         <div class="modal-actions">
-          <button id="saveFlight" class="primary-button" type="button">Guardar</button>
           <button id="cancelFlight" class="secondary-button" type="button">Cancelar</button>
+          <button id="saveFlightNext" class="secondary-button" type="button">Guardar y agregar otro</button>
+          <button id="saveFlight" class="primary-button" type="button">Guardar</button>
         </div>
       </div>
     </div>
@@ -1031,8 +1283,8 @@ td.notas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-sp
  * - Con la URL del Apps Script publicada, la página pide la clave, la envía por POST
  *   (nunca en la dirección) y el script responde:
  *   { ok: true, actualizado, movimientos: [...], porCobrar: [...] }
- *   Cada movimiento trae: IDOrigen, Tipo, Fecha, Mes, Contraparte, Concepto,
- *   MontoSinIVA, TipoGasto, LineaNegocio, Matricula, TipoMatricula.
+ *   Cada movimiento trae: IDOrigen, Tipo, Fecha, Mes, Contraparte, Concepto, Moneda,
+ *   MontoSinIVA, TipoGasto, LineaNegocio, Matricula, TipoMatricula, Categoria.
  *   Cada cuenta por cobrar trae: Cliente, Folio, Vencimiento, MontoSinIVA.
  *   Cada vuelo trae: ID, Fecha, Matricula, Origen, Destino, Horas, Piloto, Copiloto, Cliente, Notas.
  *   Cada total mensual de horas trae: Mes, Matricula, Horas (se usa solo si ese mes y avión no tienen vuelos capturados).
@@ -1065,13 +1317,18 @@ function importeConMoneda(r) {
 const $ = (id) => document.getElementById(id);
 const suma = (lista, f) => lista.reduce((total, x) => total + f(x), 0);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const monedaDe = (r) => String((r && r.Moneda) || 'MXN').toUpperCase();
+const esMXN = (r) => monedaDe(r) === 'MXN';
+const esUSD = (r) => monedaDe(r) === 'USD';
 const esIngreso = (r) => r.Tipo === 'Ingreso';
 const esGasto = (r) => r.Tipo === 'Gasto';
 const esFijo = (r) => esGasto(r) && r.TipoGasto === 'Fijo';
 const clase = (n) => (n >= 0 ? 'positive' : 'negative');
 const nombreMes = (clave) => MESES[clave.slice(5, 7)] || clave;
 
-const state = { anio: '', mes: 'todos', linea: 'todas', avion: 'todos', datos: null };
+const state = { anio: '', mes: 'todos', linea: 'todas', avion: 'todos', datos: null, busqueda: '', tipoMov: '' };
+let movimientosVista = [];   // movimientos (pesos y dólares) con los filtros del encabezado
+const sinAcentos = (t) => String(t ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
 /* ---------- Datos ---------- */
 
@@ -1119,12 +1376,14 @@ function normalizar(datos) {
   datos.movimientos = (datos.movimientos || []).map((r) => ({
     ...r,
     MontoSinIVA: Number(r.MontoSinIVA) || 0,
+    Moneda: monedaDe(r),
+    Categoria: r.Categoria || '',
     Mes: r.Mes || String(r.Fecha || '').slice(0, 7),
     TipoGasto: r.TipoGasto || '',
     LineaNegocio: r.LineaNegocio || 'Sin clasificar',
     TipoMatricula: r.TipoMatricula || 'Sin clasificar',
   }));
-  datos.porCobrar = (datos.porCobrar || []).map((c) => ({ ...c, MontoSinIVA: Number(c.MontoSinIVA) || 0 }));
+  datos.porCobrar = (datos.porCobrar || []).map((c) => ({ ...c, Moneda: monedaDe(c), MontoSinIVA: Number(c.MontoSinIVA) || 0 }));
   datos.horasMensuales = (datos.horasMensuales || []).map((h) => ({ ...h, Horas: Number(h.Horas) || 0 }));
   datos.vuelos = (datos.vuelos || []).map((v) => ({ ...v, Horas: Number(v.Horas) || 0, Fecha: String(v.Fecha || '').slice(0, 10) }));
   return datos;
@@ -1132,12 +1391,14 @@ function normalizar(datos) {
 
 /* ---------- Filtros ---------- */
 
-function filtrar({ ignorarMes = false } = {}) {
+/* Por defecto solo trae movimientos en pesos (MXN). moneda: 'USD' o 'todas' para los demás. */
+function filtrar({ ignorarMes = false, ignorarAnio = false, ignorarAvion = false, moneda = 'MXN' } = {}) {
   return state.datos.movimientos.filter((r) => {
-    if (state.anio !== 'todos' && !r.Mes.startsWith(state.anio)) return false;
+    if (moneda !== 'todas' && monedaDe(r) !== moneda) return false;
+    if (!ignorarAnio && state.anio !== 'todos' && !r.Mes.startsWith(state.anio)) return false;
     if (!ignorarMes && state.mes !== 'todos' && r.Mes.slice(5, 7) !== state.mes) return false;
     if (state.linea !== 'todas' && r.LineaNegocio !== state.linea) return false;
-    if (state.avion !== 'todos' && r.Matricula !== state.avion) return false;
+    if (!ignorarAvion && state.avion !== 'todos' && r.Matricula !== state.avion) return false;
     return true;
   });
 }
@@ -1170,20 +1431,77 @@ function dibujarResumen(filas) {
   const gastos = filas.filter(esGasto);
   const totalIng = suma(ingresos, (r) => r.MontoSinIVA);
   const totalGas = suma(gastos, (r) => r.MontoSinIVA);
-  const fijos = suma(gastos.filter(esFijo), (r) => r.MontoSinIVA);
+  const gFijos = gastos.filter(esFijo);
+  const gVariables = gastos.filter((r) => r.TipoGasto === 'Variable');
+  const gSinClasificar = gastos.filter((r) => !esFijo(r) && r.TipoGasto !== 'Variable');
+  const fijos = suma(gFijos, (r) => r.MontoSinIVA);
+  const variables = suma(gVariables, (r) => r.MontoSinIVA);
+  const sinClasificar = suma(gSinClasificar, (r) => r.MontoSinIVA);
   const resultado = totalIng - totalGas;
+  const pct = (v) => (totalGas > 0 ? `${(v / totalGas * 100).toFixed(0)} % del total` : '—');
 
   $('incomeValue').textContent = dinero.format(totalIng);
   $('incomeCount').textContent = ingresos.length;
   $('expenseValue').textContent = dinero.format(totalGas);
-  $('expenseCount').textContent = gastos.length;
-  $('expenseMeta').textContent = `Fijos ${dinero.format(fijos)}, variables ${dinero.format(totalGas - fijos)}`;
+  $('expenseMeta').textContent = `${gastos.length} ${gastos.length === 1 ? 'factura pagada' : 'facturas pagadas'}` +
+    (sinClasificar > 0 ? ` · ${dinero.format(sinClasificar)} sin clasificar` : '');
+  $('variableValue').textContent = dinero.format(variables);
+  $('variableMeta').textContent = `${gVariables.length} ${gVariables.length === 1 ? 'movimiento' : 'movimientos'} · ${pct(variables)}`;
+  $('fixedValue').textContent = dinero.format(fijos);
+  $('fixedMeta').textContent = `${gFijos.length} ${gFijos.length === 1 ? 'movimiento' : 'movimientos'} · ${pct(fijos)}`;
+  $('totalVariable').textContent = dinero.format(variables);
+  $('totalFixed').textContent = dinero.format(fijos);
+  $('variableTotalTitle').textContent = dinero.format(variables);
+  $('fixedTotalTitle').textContent = dinero.format(fijos);
+  listaPorContraparte('variableList', gVariables);
+  listaPorContraparte('fixedList', gFijos);
+  listaPorCategoria(gastos, totalGas);
   $('totalIncome').textContent = dinero.format(totalIng);
   $('totalExpenses').textContent = dinero.format(totalGas);
   const marcador = $('summaryMargin');
   marcador.textContent = dinero.format(resultado);
   marcador.className = clase(resultado);
   $('marginMeta').textContent = totalIng > 0 ? `${(resultado / totalIng * 100).toFixed(1)} %` : '—';
+}
+
+/* Gastos agrupados por proveedor (los 8 más grandes) con barra de proporción */
+function listaPorContraparte(idContenedor, filas) {
+  const mapa = new Map();
+  filas.forEach((r) => {
+    const k = String(r.Contraparte || 'Sin proveedor').trim() || 'Sin proveedor';
+    mapa.set(k, (mapa.get(k) || 0) + r.MontoSinIVA);
+  });
+  const datos = [...mapa.entries()].map(([etiqueta, valor]) => ({ etiqueta, valor })).filter((d) => d.valor > 0).sort((a, b) => b.valor - a.valor);
+  const total = suma(datos, (d) => d.valor);
+  const top = datos.slice(0, 8);
+  const resto = suma(datos.slice(8), (d) => d.valor);
+  if (resto > 0) top.push({ etiqueta: `Otros (${datos.length - 8})`, valor: resto });
+  $(idContenedor).innerHTML = top.length
+    ? top.map((d) => `
+        <div class="category-item">
+          <div class="category-top"><span>${esc(d.etiqueta)}</span><strong>${dinero.format(d.valor)}</strong></div>
+          <div class="progress"><span style="width:${total ? d.valor / total * 100 : 0}%"></span></div>
+        </div>`).join('')
+    : '<p class="vacio-mensaje">No hay gastos de este tipo con estos filtros.</p>';
+}
+
+/* Gastos por categoría (todas, con barra de proporción) */
+function listaPorCategoria(gastos, totalGas) {
+  const mapa = new Map();
+  gastos.forEach((r) => {
+    const k = r.Categoria || 'Sin categoría';
+    mapa.set(k, (mapa.get(k) || 0) + r.MontoSinIVA);
+  });
+  const datos = [...mapa.entries()].map(([etiqueta, valor]) => ({ etiqueta, valor })).filter((d) => d.valor > 0)
+    .sort((a, b) => (a.etiqueta === 'Otros') - (b.etiqueta === 'Otros') || b.valor - a.valor);   // "Otros" al final
+  $('categoryTotalTitle').textContent = dinero.format(totalGas);
+  $('categoryList').innerHTML = datos.length
+    ? datos.map((d) => `
+        <div class="category-item">
+          <div class="category-top"><span>${esc(d.etiqueta)} <small class="sub-inline">${totalGas ? (d.valor / totalGas * 100).toFixed(0) : 0} %</small></span><strong>${dinero.format(d.valor)}</strong></div>
+          <div class="progress"><span style="width:${totalGas ? d.valor / totalGas * 100 : 0}%"></span></div>
+        </div>`).join('')
+    : '<p class="vacio-mensaje">No hay gastos con estos filtros.</p>';
 }
 
 function listaPorLinea(idContenedor, filas) {
@@ -1256,7 +1574,13 @@ function dibujarAviones(filas) {
   $('planeTotal').innerHTML = `<tr><td>Total</td><td class="num">${dinero.format(tI)}</td><td class="num">${dinero.format(tF)}</td><td class="num">${dinero.format(tV)}</td><td class="num ${clase(rt)}">${dinero.format(rt)}</td></tr>`;
 }
 
-function dibujarMovimientos(filas) {
+function dibujarMovimientos() {
+  const q = sinAcentos(state.busqueda).trim();
+  const filas = movimientosVista.filter((r) => {
+    if (state.tipoMov && r.Tipo !== state.tipoMov) return false;
+    if (!q) return true;
+    return sinAcentos([r.Contraparte, r.Concepto, r.Matricula, r.LineaNegocio, r.Categoria, r.Fecha, r.IDOrigen].join(' ')).includes(q);
+  });
   const ordenadas = [...filas].sort((a, b) => String(b.Fecha).localeCompare(String(a.Fecha)));
   const mostradas = ordenadas.slice(0, 150);
   $('movementTable').innerHTML = mostradas.length ? mostradas.map((r) => `
@@ -1265,27 +1589,54 @@ function dibujarMovimientos(filas) {
     ${celdaMoneda(r)}
     <td class="num ${esIngreso(r) ? 'positive' : ''}">${importeConMoneda(r)}</td></tr>`).join('')
     : '<tr><td colspan="8" class="vacio-mensaje">No hay movimientos con estos filtros.</td></tr>';
+  const filtrado = q || state.tipoMov;
   $('movementNote').textContent = ordenadas.length > mostradas.length
-    ? `Se muestran los ${mostradas.length} más recientes de ${ordenadas.length}.`
-    : `${ordenadas.length} movimientos.`;
+    ? `Se muestran los ${mostradas.length} más recientes de ${ordenadas.length}${filtrado ? ' que coinciden' : ''}.`
+    : `${ordenadas.length} ${ordenadas.length === 1 ? 'movimiento' : 'movimientos'}${filtrado ? ` de ${movimientosVista.length}` : ''}.`;
 }
 
 function dibujarPorCobrar() {
   const hoy = new Date();
   const lista = [...state.datos.porCobrar].sort((a, b) => String(a.Vencimiento).localeCompare(String(b.Vencimiento)));
-  $('receivableTable').innerHTML = lista.length ? lista.map((c) => {
-    const dias = Math.floor((hoy - new Date(String(c.Vencimiento) + 'T23:59:59')) / 86400000);
-    const estado = dias > 0
-      ? `<span class="estado-vencida">Vencida hace ${dias} ${dias === 1 ? 'día' : 'días'}</span>`
-      : `Vence en ${-dias} ${-dias === 1 ? 'día' : 'días'}`;
-    return `<tr><td>${esc(c.Cliente)}</td><td>${esc(c.Folio)}</td><td>${esc(c.Vencimiento)}</td><td>${estado}</td><td class="num">${dinero.format(c.MontoSinIVA)}</td></tr>`;
+  const clasif = lista.map((c) => {
+    const dias = Math.floor((hoy - new Date(String(c.Vencimiento) + 'T23:59:59')) / 86400000);   // > 0 = días de atraso
+    return { c, dias, grupo: dias > 0 ? 'vencida' : (-dias <= 7 ? 'pronto' : 'corriente') };
+  });
+
+  $('receivableTable').innerHTML = clasif.length ? clasif.map(({ c, dias, grupo }) => {
+    const estado = grupo === 'vencida'
+      ? `<span class="punto rojo"></span><span class="estado-vencida">Vencida hace ${dias} ${dias === 1 ? 'día' : 'días'}</span>`
+      : `<span class="punto ${grupo === 'pronto' ? 'ambar' : 'verde'}"></span>${grupo === 'pronto' ? '<span class="estado-pronto">' : '<span>'}Vence en ${-dias} ${-dias === 1 ? 'día' : 'días'}</span>`;
+    return `<tr><td>${esc(c.Cliente)}</td><td>${esc(c.Folio)}</td><td>${esc(c.Vencimiento)}</td><td>${estado}</td><td class="num">${importeConMoneda({ Moneda: c.Moneda, MontoSinIVA: c.MontoSinIVA })} <small class="sub-inline">${esc(c.Moneda)}</small></td></tr>`;
   }).join('') : '<tr><td colspan="5" class="vacio-mensaje">No hay facturas por cobrar.</td></tr>';
-  $('receivableTotal').innerHTML = `<tr><td colspan="4">Total por cobrar</td><td class="num">${dinero.format(suma(lista, (c) => c.MontoSinIVA))}</td></tr>`;
+
+  const totales = (g) => {
+    const rs = clasif.filter((x) => g === 'todas' || x.grupo === g).map((x) => x.c);
+    return { n: rs.length, mxn: suma(rs.filter(esMXN), (c) => c.MontoSinIVA), usd: suma(rs.filter(esUSD), (c) => c.MontoSinIVA), tieneUsd: rs.some(esUSD) };
+  };
+  const pintar = (g, idValor, idMeta) => {
+    const t = totales(g);
+    $(idValor).textContent = dinero.format(t.mxn);
+    $(idMeta).textContent = `${t.n} ${t.n === 1 ? 'factura' : 'facturas'}` + (t.tieneUsd ? ` · más ${dolares.format(t.usd)} en dólares` : '');
+  };
+  pintar('vencida', 'overdueValue', 'overdueMeta');
+  pintar('pronto', 'soonValue', 'soonMeta');
+  pintar('corriente', 'okValue', 'okMeta');
+
+  const tt = totales('todas');
+  $('receivableTotal').innerHTML = `<tr><td colspan="4">Total por cobrar en pesos</td><td class="num">${dinero.format(tt.mxn)}</td></tr>` +
+    (tt.tieneUsd ? `<tr><td colspan="4">Total por cobrar en dólares</td><td class="num">${dolares.format(tt.usd)}</td></tr>` : '');
 }
 
 /* ---------- Vuelos AOC ---------- */
 
-const fmtHoras = (h) => `${Number(h || 0).toFixed(1)} h`;
+/* Horas decimales -> "1 h 30 min" */
+function fmtHoras(h) {
+  const total = Math.round((Number(h) || 0) * 60);
+  const hh = Math.floor(total / 60), mm = total % 60;
+  if (!hh && !mm) return '0 min';
+  return hh ? (mm ? `${hh} h ${mm} min` : `${hh} h`) : `${mm} min`;
+}
 let vueloEnEdicion = null;
 
 function vuelosFiltrados() {
@@ -1310,7 +1661,7 @@ function horasDelPeriodo(vuelos) {
   return { horas: suma(vuelos, (v) => v.Horas) + suma(mensuales, (h) => h.Horas), mesesMensuales: mensuales.length };
 }
 
-function dibujarVuelos(filas) {
+function dibujarVuelos(filas, todas) {
   const vuelos = vuelosFiltrados();
   const movsAoc = filas.filter((r) => AVIONES_AOC.includes(r.Matricula));
   const { horas, mesesMensuales } = horasDelPeriodo(vuelos);
@@ -1339,7 +1690,7 @@ function dibujarVuelos(filas) {
     </tr>`).join('')
     : '<tr><td colspan="9" class="vacio-mensaje">No hay vuelos con estos filtros.</td></tr>';
 
-  const ordenadas = [...movsAoc].sort((a, b) => String(b.Fecha).localeCompare(String(a.Fecha)));
+  const ordenadas = [...(todas || filas).filter((r) => AVIONES_AOC.includes(r.Matricula))].sort((a, b) => String(b.Fecha).localeCompare(String(a.Fecha)));
   const mostradas = ordenadas.slice(0, 150);
   $('aocMovementTable').innerHTML = mostradas.length ? mostradas.map((r) => `
     <tr><td>${esc(r.Fecha)}</td><td>${esc(r.Matricula)}</td><td>${esc(r.Tipo)}</td><td>${esc(r.Concepto)}</td><td>${esc(r.Contraparte)}</td>
@@ -1360,15 +1711,30 @@ function abrirFormularioVuelo(vuelo) {
   const hoy = new Date().toISOString().slice(0, 10);
   $('fFecha').value = vuelo ? vuelo.Fecha : hoy;
   $('fMatricula').value = vuelo ? vuelo.Matricula : (AVIONES_AOC.includes(state.avion) ? state.avion : AVIONES_AOC[0]);
-  $('fOrigen').value = vuelo ? vuelo.Origen : '';
+  const sugerido = vuelo ? null : ultimoVuelo($('fMatricula').value);
+  $('fOrigen').value = vuelo ? vuelo.Origen : (sugerido ? sugerido.Destino : '');   // el destino anterior es el nuevo origen
   $('fDestino').value = vuelo ? vuelo.Destino : '';
-  $('fHoras').value = vuelo ? vuelo.Horas : '';
+  const totalMin = vuelo ? Math.round(vuelo.Horas * 60) : 0;
+  $('fHoras').value = vuelo ? Math.floor(totalMin / 60) : '';
+  $('fMinutos').value = vuelo ? totalMin % 60 : '';
+  $('aeropuertos').innerHTML = codigosAeropuerto().map((c) => `<option value="${esc(c)}"></option>`).join('');
   $('fCliente').value = vuelo ? vuelo.Cliente : '';
   $('fPiloto').value = vuelo ? vuelo.Piloto : '';
   $('fCopiloto').value = vuelo ? vuelo.Copiloto : '';
   $('fNotas').value = vuelo ? vuelo.Notas : '';
   $('flightModal').classList.remove('hidden');
-  $('fFecha').focus();
+  $(vuelo ? 'fHoras' : ($('fOrigen').value ? 'fDestino' : 'fOrigen')).focus();
+}
+
+/* Último vuelo capturado de un avión (para sugerir el origen) */
+function ultimoVuelo(matricula) {
+  return [...state.datos.vuelos].filter((v) => v.Matricula === matricula).sort((a, b) => b.Fecha.localeCompare(a.Fecha))[0] || null;
+}
+
+/* Aeropuertos ya usados + los más comunes, para autocompletar */
+function codigosAeropuerto() {
+  const usados = state.datos.vuelos.flatMap((v) => [v.Origen, v.Destino]).filter(Boolean);
+  return [...new Set([...usados, 'MMMY', 'MMAN', 'MMMX', 'MMTO', 'MMGL', 'MMUN', 'MMSM', 'MMPR'])];
 }
 
 function cerrarFormularioVuelo() {
@@ -1383,19 +1749,22 @@ async function refrescar() {
   dibujar();
 }
 
-async function guardarVueloFormulario() {
+async function guardarVueloFormulario(agregarOtro) {
+  const horasNum = Number($('fHoras').value) || 0;
+  const minNum = Number($('fMinutos').value) || 0;
   const vuelo = {
     ID: vueloEnEdicion ? vueloEnEdicion.ID : '',
     Fecha: $('fFecha').value, Matricula: $('fMatricula').value,
     Origen: $('fOrigen').value.trim().toUpperCase(), Destino: $('fDestino').value.trim().toUpperCase(),
-    Horas: $('fHoras').value, Cliente: $('fCliente').value, Piloto: $('fPiloto').value,
+    Horas: Math.round((horasNum + minNum / 60) * 100) / 100, Cliente: $('fCliente').value, Piloto: $('fPiloto').value,
     Copiloto: $('fCopiloto').value, Notas: $('fNotas').value,
   };
   const error = $('flightError');
   if (!vuelo.Fecha || !vuelo.Origen || !vuelo.Destino || !vuelo.Horas) {
-    error.textContent = 'Faltan datos: fecha, origen, destino y horas son obligatorios.';
+    error.textContent = 'Faltan datos: fecha, origen, destino y tiempo de vuelo.';
     return;
   }
+  if (minNum > 59) { error.textContent = 'Los minutos deben ser de 0 a 59.'; return; }
   error.textContent = '';
 
   if (!CONFIG.URL_DATOS) {                                    // modo ejemplo: solo en memoria
@@ -1405,12 +1774,13 @@ async function guardarVueloFormulario() {
     state.datos.vuelos.sort((a, b) => b.Fecha.localeCompare(a.Fecha));
     cerrarFormularioVuelo();
     dibujar();
+    if (agregarOtro) abrirFormularioVuelo(null);
     return;
   }
 
   const clave = pedirClave('captura');
   if (!clave) return;
-  $('saveFlight').disabled = true;
+  $('saveFlight').disabled = true; $('saveFlightNext').disabled = true;
   try {
     const respuesta = await enviar('guardarVuelo', { vuelo }, clave);
     if (!respuesta.ok) {
@@ -1419,11 +1789,19 @@ async function guardarVueloFormulario() {
       return;
     }
     await refrescar();
+    const fechaPrevia = vuelo.Fecha, avionPrevio = vuelo.Matricula;
     cerrarFormularioVuelo();
+    if (agregarOtro) {                                         // deja el formulario listo para el siguiente tramo
+      abrirFormularioVuelo(null);
+      $('fFecha').value = fechaPrevia;
+      $('fMatricula').value = avionPrevio;
+      $('fOrigen').value = vuelo.Destino;
+      $('fDestino').focus();
+    }
   } catch (e) {
     error.textContent = 'No se pudo conectar. Revisa tu internet e inténtalo de nuevo.';
   } finally {
-    $('saveFlight').disabled = false;
+    $('saveFlight').disabled = false; $('saveFlightNext').disabled = false;
   }
 }
 
@@ -1451,7 +1829,16 @@ async function anularVuelo(id) {
 
 function activarVuelos() {
   $('addFlight').addEventListener('click', () => abrirFormularioVuelo(null));
-  $('saveFlight').addEventListener('click', guardarVueloFormulario);
+  $('saveFlight').addEventListener('click', () => guardarVueloFormulario(false));
+  $('saveFlightNext').addEventListener('click', () => guardarVueloFormulario(true));
+  $('fMatricula').addEventListener('change', () => {          // al cambiar de avión, sugiere su último destino como origen
+    if (vueloEnEdicion) return;
+    const u = ultimoVuelo($('fMatricula').value);
+    $('fOrigen').value = u ? u.Destino : '';
+  });
+  $('flightModal').addEventListener('keydown', (e) => {       // Enter en un campo = guardar
+    if (e.key === 'Enter' && e.target.tagName === 'INPUT') { e.preventDefault(); guardarVueloFormulario(false); }
+  });
   $('cancelFlight').addEventListener('click', cerrarFormularioVuelo);
   $('closeFlightModal').addEventListener('click', cerrarFormularioVuelo);
   $('flightModal').addEventListener('click', (e) => { if (e.target === $('flightModal')) cerrarFormularioVuelo(); });
@@ -1466,22 +1853,245 @@ function activarVuelos() {
   });
 }
 
+/* Problemas de cada movimiento (sobre todos los datos, sin filtros) */
+function problemasDe(r) {
+  const p = [];
+  if (r.TipoMatricula === 'Sin clasificar') p.push('Matrícula vacía o fuera del catálogo');
+  if (r.LineaNegocio === 'Sin clasificar') p.push('Sin línea de negocio');
+  if (esGasto(r) && r.TipoGasto !== 'Fijo' && r.TipoGasto !== 'Variable') p.push('Sin tipo fijo/variable');
+  if (!esMXN(r) && !esUSD(r)) p.push(`Moneda no reconocida (${monedaDe(r)})`);
+  return p;
+}
+
 function dibujarCalidad() {
-  const n = state.datos.movimientos.filter((r) => r.TipoMatricula === 'Sin clasificar' || r.LineaNegocio === 'Sin clasificar').length;
-  $('qualityNote').textContent = n
-    ? `${n} movimientos sin clasificar. Corrígelos en la plataforma de facturas para que cuenten en su línea y su avión.`
-    : 'Todos los movimientos están clasificados.';
+  const malos = state.datos.movimientos.map((r) => ({ r, p: problemasDe(r) })).filter((x) => x.p.length);
+  $('qualityNote').textContent = malos.length
+    ? `${malos.length} ${malos.length === 1 ? 'movimiento tiene' : 'movimientos tienen'} datos por corregir. Corrígelos en la plataforma de facturas (o en la hoja Historico) para que cuenten en su línea, su avión y su tipo de gasto.`
+    : 'Todos los movimientos están completos y clasificados.';
+  $('qualityDetails').classList.toggle('hidden', !malos.length);
+  const tope = 60;
+  $('qualityTable').innerHTML = malos.slice(0, tope).map(({ r, p }) => `
+    <tr><td>${esc(r.Fecha)}</td><td>${esc(r.Tipo)}</td><td>${esc(r.Contraparte)}</td><td>${esc(r.Concepto)}</td>
+    <td class="num">${importeConMoneda(r)}</td><td>${esc(r.IDOrigen)}</td><td>${p.map((x) => `<span class="problema">${esc(x)}</span>`).join('')}</td></tr>`).join('');
+  $('qualityMore').textContent = malos.length > tope ? `Se muestran los primeros ${tope} de ${malos.length}.` : '';
+}
+
+/* ---------- Comparativos contra el mes anterior ---------- */
+
+function mesAnterior(clave) {
+  let [a, m] = clave.split('-').map(Number);
+  m -= 1;
+  if (!m) { m = 12; a -= 1; }
+  return `${a}-${String(m).padStart(2, '0')}`;
+}
+const etiquetaMes = (clave) => `${nombreMes(clave)} ${clave.slice(0, 4)}`;
+
+/* El mes que se compara: el filtrado, o el último con datos del año filtrado */
+function mesActualClave() {
+  const claves = [...new Set(filtrar({ ignorarMes: true, ignorarAnio: true }).map((r) => r.Mes))].sort();
+  if (state.mes !== 'todos') {
+    if (state.anio !== 'todos') return `${state.anio}-${state.mes}`;
+    return claves.filter((k) => k.slice(5, 7) === state.mes).pop() || null;
+  }
+  const delAnio = state.anio === 'todos' ? claves : claves.filter((k) => k.startsWith(state.anio));
+  return delAnio[delAnio.length - 1] || null;
+}
+
+function totalesMes(filas, clave) {
+  const rs = filas.filter((r) => r.Mes === clave);
+  const ing = suma(rs.filter(esIngreso), (r) => r.MontoSinIVA);
+  const gas = suma(rs.filter(esGasto), (r) => r.MontoSinIVA);
+  return {
+    n: rs.length, ing, gas, res: ing - gas,
+    fij: suma(rs.filter(esFijo), (r) => r.MontoSinIVA),
+    vari: suma(rs.filter((r) => esGasto(r) && r.TipoGasto === 'Variable'), (r) => r.MontoSinIVA),
+  };
+}
+
+/* Dos celdas: cambio en pesos (con flecha) y en porcentaje. buenoSiSube: true para ingresos/resultado, false para gastos */
+function celdasCambio(actual, previo, buenoSiSube) {
+  const d = actual - previo;
+  if (Math.abs(d) < 0.5) return '<td class="num delta igual">—</td><td class="num delta igual">0 %</td>';
+  const clase2 = (d > 0) === buenoSiSube ? 'bien' : 'mal';
+  const pct = previo !== 0 ? `${d > 0 ? '+' : '−'}${Math.abs(d / previo * 100).toFixed(0)} %` : '—';
+  return `<td class="num delta ${clase2}">${d > 0 ? '▲' : '▼'} ${dinero.format(Math.abs(d))}</td><td class="num delta ${clase2}">${pct}</td>`;
+}
+
+function dibujarComparativo() {
+  const clave = mesActualClave();
+  $('comparePanel').classList.toggle('hidden', !clave);
+  if (!clave) return;
+  const previa = mesAnterior(clave);
+  const base = filtrar({ ignorarMes: true, ignorarAnio: true });
+  const a = totalesMes(base, clave);
+  const b = totalesMes(base, previa);
+  $('compareTitle').textContent = `${etiquetaMes(clave)} contra ${etiquetaMes(previa)}`;
+  $('compareHeadNow').textContent = nombreMes(clave);
+  $('compareHeadPrev').textContent = nombreMes(previa);
+  const filaCmp = (nombre, x, y, bueno, extra = '') =>
+    `<tr${extra}><td>${nombre}</td><td class="num">${dinero.format(x)}</td><td class="num">${dinero.format(y)}</td>${celdasCambio(x, y, bueno)}</tr>`;
+  $('compareTable').innerHTML =
+    filaCmp('Ingresos', a.ing, b.ing, true) +
+    filaCmp('Gastos variables', a.vari, b.vari, false) +
+    filaCmp('Gastos fijos', a.fij, b.fij, false) +
+    filaCmp('Gastos totales', a.gas, b.gas, false) +
+    filaCmp('Resultado', a.res, b.res, true, ' class="fila-total"');
+  const notas = [];
+  if (clave === new Date().toISOString().slice(0, 7)) notas.push('Es el mes en curso: todavía no está completo, así que la comparación es parcial.');
+  if (!b.n) notas.push(`No hay movimientos en ${etiquetaMes(previa)} con estos filtros.`);
+  $('compareNote').textContent = notas.join(' ') || 'Verde = mejora, rojo = empeora (en gastos, subir es malo). Usa los filtros de línea y avión.';
+}
+
+function dibujarComparativoAviones() {
+  const clave = mesActualClave();
+  const panel = $('planeCompareTable').closest('section');
+  panel.classList.toggle('hidden', !clave);
+  if (!clave) return;
+  const previa = mesAnterior(clave);
+  const base = filtrar({ ignorarMes: true, ignorarAnio: true, ignorarAvion: true });
+  const grupos = AVIONES_AOC.map((m) => ({ nombre: m, f: (r) => r.Matricula === m }));
+  grupos.push({ nombre: 'Handling, Guarda y Corporativo', f: (r) => !AVIONES_AOC.includes(r.Matricula) && r.TipoMatricula !== 'Sin clasificar' });
+  $('planeCompareTitle').textContent = `${etiquetaMes(clave)} contra ${etiquetaMes(previa)}, por avión`;
+  $('planeCompareHeadPrev').textContent = `Resultado ${nombreMes(previa)}`;
+  $('planeCompareTable').innerHTML = grupos.map((g) => {
+    const rs = base.filter(g.f);
+    const a = totalesMes(rs, clave);
+    const b = totalesMes(rs, previa);
+    return `<tr><td>${esc(g.nombre)}</td><td class="num">${celda(a.ing)}</td><td class="num">${celda(a.gas)}</td>
+      <td class="num ${a.n ? clase(a.res) : ''}">${a.n ? dinero.format(a.res) : '<span class="vacio">—</span>'}</td>
+      <td class="num">${b.n ? dinero.format(b.res) : '<span class="vacio">—</span>'}</td>${celdasCambio(a.res, b.res, true).split('</td><td')[0] + '</td>'}</tr>`;
+  }).join('');
+  $('planeCompareNote').textContent = clave === new Date().toISOString().slice(0, 7)
+    ? 'Es el mes en curso: la comparación es parcial. Resultado = ingresos menos gastos del mes.'
+    : 'Resultado = ingresos menos gastos del mes. Verde = mejora, rojo = empeora.';
+}
+
+/* ---------- Dólares ---------- */
+
+function dibujarUSD(filasUsd) {
+  $('usdPanel').classList.toggle('hidden', !filasUsd.length);
+  if (!filasUsd.length) return;
+  const ing = suma(filasUsd.filter(esIngreso), (r) => r.MontoSinIVA);
+  const gas = suma(filasUsd.filter(esGasto), (r) => r.MontoSinIVA);
+  $('usdBody').innerHTML = `
+    <div><span>Ingresos en dólares</span><strong>${dolares.format(ing)}</strong></div>
+    <div><span>Gastos en dólares</span><strong>${dolares.format(gas)}</strong></div>
+    <div><span>Resultado en dólares</span><strong class="${clase(ing - gas)}">${dolares.format(ing - gas)}</strong></div>`;
+}
+
+/* ---------- Costo por hora por mes (por avión) ---------- */
+
+const COLORES_AVION = { XADGL: '#257de0', XARHL: '#f47230', XABZN: '#00b894' };   // un color fijo por avión
+
+function horasAvionMes(mes, mat) {
+  const capturadas = suma(state.datos.vuelos.filter((v) => v.Matricula === mat && v.Fecha.startsWith(mes)), (v) => v.Horas);
+  if (capturadas > 0) return capturadas;
+  return suma(state.datos.horasMensuales.filter((h) => h.Mes === mes && h.Matricula === mat), (h) => h.Horas);
+}
+
+function datosCostoHora() {
+  const delAnio = (mes) => state.anio === 'todos' || mes.startsWith(state.anio);
+  const gastos = state.datos.movimientos.filter((r) => esMXN(r) && esGasto(r) && r.TipoGasto === 'Variable' && AVIONES_AOC.includes(r.Matricula));
+  const meses = [...new Set([
+    ...gastos.map((r) => r.Mes),
+    ...state.datos.vuelos.map((v) => v.Fecha.slice(0, 7)),
+    ...state.datos.horasMensuales.map((h) => h.Mes),
+  ])].filter((m) => m && delAnio(m)).sort();
+  const series = AVIONES_AOC.map((mat) => ({
+    nombre: mat, color: COLORES_AVION[mat],
+    puntos: meses.map((mes) => {
+      const horas = horasAvionMes(mes, mat);
+      const variable = suma(gastos.filter((r) => r.Mes === mes && r.Matricula === mat), (r) => r.MontoSinIVA);
+      return { horas, variable, costo: horas > 0 ? variable / horas : null };
+    }),
+  }));
+  return { meses, series };
+}
+
+function dibujarCostoHora() {
+  const { meses, series } = datosCostoHora();
+  $('cphTable').innerHTML = meses.length ? meses.map((mes, i) => `<tr><td>${nombreMes(mes)} ${mes.slice(0, 4)}</td>${series.map((s2) => {
+    const p = s2.puntos[i];
+    return p.costo === null ? '<td class="num"><span class="vacio">—</span></td>'
+      : `<td class="num">${dinero.format(p.costo)}<small class="sub">${fmtHoras(p.horas)}</small></td>`;
+  }).join('')}</tr>`).join('') : '<tr><td colspan="4" class="vacio-mensaje">Todavía no hay horas ni gastos variables de los aviones.</td></tr>';
+  $('cphLegend').innerHTML = series.map((s2) => `<span><i style="background:${s2.color}"></i>${esc(s2.nombre)}</span>`).join('');
+  dibujarLineas('cphChart', meses.map((m) => nombreMes(m).slice(0, 3)), series, (p) => p.costo, (p) => `${dinero.format(p.costo)}/h · ${fmtHoras(p.horas)}`);
+}
+
+/* Gráfica de líneas en SVG: 2 px, marcadores con aro blanco, etiqueta directa al final, tooltip al pasar el cursor */
+function dibujarLineas(idContenedor, etiquetas, series, valorDe, textoDe) {
+  const cont = $(idContenedor);
+  const hayDatos = series.some((s2) => s2.puntos.some((p) => valorDe(p) !== null));
+  if (!etiquetas.length || !hayDatos) { cont.innerHTML = '<p class="vacio-mensaje">Todavía no hay datos suficientes para la gráfica.</p>'; return; }
+  const W = 760, H = 300, M = { l: 74, r: 76, t: 14, b: 34 };
+  const iw = W - M.l - M.r, ih = H - M.t - M.b;
+  const maximo = Math.max(...series.flatMap((s2) => s2.puntos.map((p) => valorDe(p) || 0)), 1);
+  const paso = (() => { const crudo = maximo / 4; const pot = 10 ** Math.floor(Math.log10(crudo)); const f = crudo / pot; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * pot; })();
+  const tope = Math.ceil(maximo / paso) * paso;
+  const x = (i) => M.l + (etiquetas.length === 1 ? iw / 2 : i * iw / (etiquetas.length - 1));
+  const y = (v) => M.t + ih - v / tope * ih;
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Costo por hora por mes, una línea por avión">`;
+  for (let v = 0; v <= tope + 0.001; v += paso) {
+    svg += `<line class="rejilla" x1="${M.l}" x2="${W - M.r}" y1="${y(v)}" y2="${y(v)}"/><text class="eje" x="${M.l - 8}" y="${y(v) + 4}" text-anchor="end">${dinero.format(v)}</text>`;
+  }
+  etiquetas.forEach((e, i) => { svg += `<text class="eje" x="${x(i)}" y="${H - 10}" text-anchor="middle">${esc(e)}</text>`; });
+  svg += '<line id="cursorV" class="rejilla" stroke="#9fb3ab" y1="' + M.t + '" y2="' + (M.t + ih) + '" style="display:none"/>';
+  series.forEach((s2) => {
+    let d = '', abierto = false;
+    s2.puntos.forEach((p, i) => {
+      const v = valorDe(p);
+      if (v === null) { abierto = false; return; }
+      d += `${abierto ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)} `;
+      abierto = true;
+    });
+    svg += `<path d="${d}" fill="none" stroke="${s2.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+    s2.puntos.forEach((p, i) => {
+      const v = valorDe(p);
+      if (v !== null) svg += `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="4" fill="${s2.color}" stroke="#fff" stroke-width="2"/>`;
+    });
+    const ult = s2.puntos.map((p, i) => ({ v: valorDe(p), i })).filter((q) => q.v !== null).pop();
+    if (ult) svg += `<text class="etiqueta-serie" x="${x(ult.i) + 9}" y="${y(ult.v) + 4}">${esc(s2.nombre)}</text>`;
+  });
+  etiquetas.forEach((e, i) => {
+    const ancho = etiquetas.length === 1 ? iw : iw / (etiquetas.length - 1);
+    svg += `<rect data-i="${i}" x="${x(i) - ancho / 2}" y="${M.t}" width="${ancho}" height="${ih}" fill="transparent"/>`;
+  });
+  svg += '</svg><div class="tooltip-grafica" style="display:none"></div>';
+  cont.innerHTML = svg;
+  const tip = cont.querySelector('.tooltip-grafica'), cursor = cont.querySelector('#cursorV');
+  cont.querySelectorAll('rect[data-i]').forEach((r) => {
+    r.addEventListener('mousemove', (ev) => {
+      const i = Number(r.dataset.i);
+      cursor.setAttribute('x1', x(i)); cursor.setAttribute('x2', x(i)); cursor.style.display = '';
+      tip.innerHTML = `<strong>${esc(etiquetas[i])}</strong><br>` + series.map((s2) => {
+        const p = s2.puntos[i];
+        return `<span style="color:${s2.color}">●</span> ${esc(s2.nombre)}: ${valorDe(p) === null ? '—' : textoDe(p)}`;
+      }).join('<br>');
+      const caja = cont.getBoundingClientRect();
+      tip.style.display = 'block';
+      tip.style.left = Math.min(ev.clientX - caja.left + 14, caja.width - tip.offsetWidth - 4) + 'px';
+      tip.style.top = Math.max(ev.clientY - caja.top - tip.offsetHeight - 10, 0) + 'px';
+    });
+    r.addEventListener('mouseleave', () => { tip.style.display = 'none'; cursor.style.display = 'none'; });
+  });
 }
 
 function dibujar() {
-  const filas = filtrar();
+  const todas = filtrar({ moneda: 'todas' });          // pesos y dólares
+  const filas = todas.filter(esMXN);                   // los totales son solo en pesos
+  movimientosVista = todas;
   dibujarResumen(filas);
   listaPorLinea('incomeLines', filas.filter(esIngreso));
   listaPorLinea('expenseLines', filas.filter(esGasto));
   dibujarMeses(filtrar({ ignorarMes: true }));
+  dibujarComparativo();
+  dibujarUSD(todas.filter(esUSD));
   dibujarAviones(filas);
-  dibujarMovimientos(filas);
-  dibujarVuelos(filas);
+  dibujarComparativoAviones();
+  dibujarMovimientos();
+  dibujarVuelos(filas, todas);
+  dibujarCostoHora();
 }
 
 function activarPestanas() {
@@ -1491,9 +2101,207 @@ function activarPestanas() {
   }));
 }
 
+/* ---------- Búsqueda en Movimientos ---------- */
+
+function activarBusqueda() {
+  $('movSearch').addEventListener('input', (e) => { state.busqueda = e.target.value; if (state.datos) dibujarMovimientos(); });
+  $('movTipo').addEventListener('change', (e) => { state.tipoMov = e.target.value; if (state.datos) dibujarMovimientos(); });
+}
+
+/* ---------- Exportar: Excel (.xlsx real, sin librerías) y PDF (imprimir) ---------- */
+
+function textoFiltros() {
+  return [
+    `Año: ${state.anio === 'todos' ? 'todos' : state.anio}`,
+    `Mes: ${state.mes === 'todos' ? 'todos' : MESES[state.mes]}`,
+    `Línea: ${state.linea === 'todas' ? 'todas' : state.linea}`,
+    `Avión: ${state.avion === 'todos' ? 'todos' : state.avion}`,
+  ].join(' · ');
+}
+
+const colExcel = (n) => { let t = ''; for (n += 1; n > 0; n = Math.floor((n - 1) / 26)) t = String.fromCharCode(65 + ((n - 1) % 26)) + t; return t; };
+const xmlEsc = (t) => String(t).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+/* hoja = { nombre, filas: [[celda, ...]], encabezado: true|false }. Celda: texto, número o { v, b: negritas, p: porcentaje } */
+function xmlHoja(hoja) {
+  const anchos = [];
+  const filas = hoja.filas.map((fila, i) => {
+    const celdas = fila.map((c, j) => {
+      if (c === null || c === undefined || c === '') return '';
+      const obj = typeof c === 'object' ? c : { v: c };
+      const negrita = obj.b || (hoja.encabezado && i === 0);
+      const ref = colExcel(j) + (i + 1);
+      anchos[j] = Math.max(anchos[j] || 10, Math.min(60, String(typeof obj.v === 'number' ? '00000000000000' : obj.v).length + 2));
+      if (typeof obj.v === 'number' && Number.isFinite(obj.v)) {
+        const estilo = obj.p ? 3 : negrita ? 4 : 2;
+        return `<c r="${ref}" s="${estilo}"><v>${obj.v}</v></c>`;
+      }
+      return `<c r="${ref}"${negrita ? ' s="1"' : ''} t="inlineStr"><is><t xml:space="preserve">${xmlEsc(obj.v)}</t></is></c>`;
+    }).join('');
+    return `<row r="${i + 1}">${celdas}</row>`;
+  }).join('');
+  const cols = anchos.map((a, j) => `<col min="${j + 1}" max="${j + 1}" width="${a}" customWidth="1"/>`).join('');
+  return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><cols>${cols}</cols><sheetData>${filas}</sheetData></worksheet>`;
+}
+
+function crc32(u8) {
+  if (!crc32.tabla) {
+    crc32.tabla = [];
+    for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; crc32.tabla[n] = c >>> 0; }
+  }
+  let crc = 0xFFFFFFFF;
+  for (let i = 0; i < u8.length; i++) crc = crc32.tabla[(crc ^ u8[i]) & 255] ^ (crc >>> 8);
+  return (crc ^ 0xFFFFFFFF) >>> 0;
+}
+
+/* ZIP sin compresión (un .xlsx es un ZIP de archivos XML) */
+function crearZip(archivos) {
+  const enc = new TextEncoder();
+  const partes = [], central = [];
+  let desplazamiento = 0;
+  const ahora = new Date();
+  const hora = (ahora.getHours() << 11) | (ahora.getMinutes() << 5) | (ahora.getSeconds() >> 1);
+  const fecha = ((ahora.getFullYear() - 1980) << 9) | ((ahora.getMonth() + 1) << 5) | ahora.getDate();
+  archivos.forEach(({ nombre, texto }) => {
+    const n = enc.encode(nombre), datos = enc.encode(texto), crc = crc32(datos);
+    const lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true);
+    lh.setUint16(10, hora, true); lh.setUint16(12, fecha, true); lh.setUint32(14, crc, true);
+    lh.setUint32(18, datos.length, true); lh.setUint32(22, datos.length, true); lh.setUint16(26, n.length, true);
+    partes.push(new Uint8Array(lh.buffer), n, datos);
+    const ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true);
+    ch.setUint16(12, hora, true); ch.setUint16(14, fecha, true); ch.setUint32(16, crc, true);
+    ch.setUint32(20, datos.length, true); ch.setUint32(24, datos.length, true); ch.setUint16(28, n.length, true);
+    ch.setUint32(42, desplazamiento, true);
+    central.push(new Uint8Array(ch.buffer), n);
+    desplazamiento += 30 + n.length + datos.length;
+  });
+  const tamCentral = central.reduce((t, x) => t + x.length, 0);
+  const fin = new DataView(new ArrayBuffer(22));
+  fin.setUint32(0, 0x06054b50, true); fin.setUint16(8, archivos.length, true); fin.setUint16(10, archivos.length, true);
+  fin.setUint32(12, tamCentral, true); fin.setUint32(16, desplazamiento, true);
+  return new Blob([...partes, ...central, new Uint8Array(fin.buffer)], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+}
+
+function crearXlsx(hojas) {
+  const ns = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main';
+  const archivos = [
+    { nombre: '[Content_Types].xml', texto: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${hojas.map((h, i) => `<Override PartName="/xl/worksheets/sheet${i + 1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}</Types>` },
+    { nombre: '_rels/.rels', texto: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>' },
+    { nombre: 'xl/workbook.xml', texto: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="${ns}" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${hojas.map((h, i) => `<sheet name="${xmlEsc(h.nombre)}" sheetId="${i + 1}" r:id="rId${i + 1}"/>`).join('')}</sheets></workbook>` },
+    { nombre: 'xl/_rels/workbook.xml.rels', texto: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${hojas.map((h, i) => `<Relationship Id="rId${i + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i + 1}.xml"/>`).join('')}<Relationship Id="rId${hojas.length + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>` },
+    { nombre: 'xl/styles.xml', texto: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="${ns}"><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="5"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/><xf numFmtId="4" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="10" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="4" fontId="1" fillId="0" borderId="0" xfId="0" applyNumberFormat="1" applyFont="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>` },
+    ...hojas.map((h, i) => ({ nombre: `xl/worksheets/sheet${i + 1}.xml`, texto: xmlHoja(h) })),
+  ];
+  return crearZip(archivos);
+}
+
+function hojasExcel() {
+  const B = (v) => ({ v, b: true });
+  const todas = filtrar({ moneda: 'todas' });
+  const filas = todas.filter(esMXN);
+  const usd = todas.filter(esUSD);
+  const ingresos = filas.filter(esIngreso), gastos = filas.filter(esGasto);
+  const ing = suma(ingresos, (r) => r.MontoSinIVA), gas = suma(gastos, (r) => r.MontoSinIVA);
+  const vari = suma(gastos.filter((r) => r.TipoGasto === 'Variable'), (r) => r.MontoSinIVA);
+  const fij = suma(gastos.filter(esFijo), (r) => r.MontoSinIVA);
+
+  const resumen = [
+    [B('Finanzas Jet Mach')], [textoFiltros()], [`Generado: ${new Date().toLocaleString('es-MX')}`],
+    ['Importes sin IVA. Los totales son solo en pesos (MXN); los dólares van aparte.'], [],
+    [B('Resumen en pesos'), B('Importe')],
+    ['Ingresos', ing], ['Gastos variables', vari], ['Gastos fijos', fij],
+    ['Gastos sin clasificar como fijo o variable', gas - vari - fij],
+    [B('Gastos totales'), B(gas)], [B('Resultado'), B(ing - gas)],
+    ['Margen sobre ingresos', ing > 0 ? { v: (ing - gas) / ing, p: true } : ''],
+  ];
+  if (usd.length) {
+    const iu = suma(usd.filter(esIngreso), (r) => r.MontoSinIVA), gu = suma(usd.filter(esGasto), (r) => r.MontoSinIVA);
+    resumen.push([], [B('En dólares (USD)'), B('Importe')], ['Ingresos USD', iu], ['Gastos USD', gu], [B('Resultado USD'), B(iu - gu)]);
+  }
+  const lineas = [...LINEAS];
+  if (filas.some((r) => r.LineaNegocio === 'Sin clasificar')) lineas.push('Sin clasificar');
+  resumen.push([], [B('Por línea de negocio'), B('Ingresos'), B('Gastos'), B('Resultado')]);
+  lineas.forEach((l) => {
+    const i2 = suma(ingresos.filter((r) => r.LineaNegocio === l), (r) => r.MontoSinIVA), g2 = suma(gastos.filter((r) => r.LineaNegocio === l), (r) => r.MontoSinIVA);
+    if (i2 || g2) resumen.push([l, i2, g2, i2 - g2]);
+  });
+  const cats = new Map();
+  gastos.forEach((r) => { const k = r.Categoria || 'Sin categoría'; cats.set(k, (cats.get(k) || 0) + r.MontoSinIVA); });
+  resumen.push([], [B('Gastos por categoría'), B('Importe'), B('% del total')]);
+  [...cats.entries()].sort((a, b) => b[1] - a[1]).forEach(([k, v]) => resumen.push([k, v, { v: gas ? v / gas : 0, p: true }]));
+  resumen.push([], [B('Por avión'), B('Ingresos'), B('Gastos fijos'), B('Gastos variables'), B('Resultado')]);
+  const grupos = AVIONES_AOC.map((m) => ({ nombre: m, f: (r) => r.Matricula === m }));
+  grupos.push({ nombre: 'Handling, Guarda y Corporativo', f: (r) => !AVIONES_AOC.includes(r.Matricula) && r.TipoMatricula !== 'Sin clasificar' });
+  grupos.push({ nombre: 'Sin clasificar', f: (r) => r.TipoMatricula === 'Sin clasificar' });
+  grupos.forEach((g) => {
+    const rs = filas.filter(g.f), i2 = suma(rs.filter(esIngreso), (r) => r.MontoSinIVA), f2 = suma(rs.filter(esFijo), (r) => r.MontoSinIVA);
+    const v2 = suma(rs.filter(esGasto), (r) => r.MontoSinIVA) - f2;
+    if (i2 || f2 || v2) resumen.push([g.nombre, i2, f2, v2, i2 - f2 - v2]);
+  });
+  const clave = mesActualClave();
+  if (clave) {
+    const base = filtrar({ ignorarMes: true, ignorarAnio: true }), a = totalesMes(base, clave), b = totalesMes(base, mesAnterior(clave));
+    resumen.push([], [B(`${etiquetaMes(clave)} contra ${etiquetaMes(mesAnterior(clave))}`), B('Actual'), B('Anterior'), B('Cambio')]);
+    [['Ingresos', 'ing'], ['Gastos variables', 'vari'], ['Gastos fijos', 'fij'], ['Gastos totales', 'gas'], ['Resultado', 'res']].forEach(([n, k]) => resumen.push([n, a[k], b[k], a[k] - b[k]]));
+  }
+
+  const movs = [['Fecha', 'Tipo', 'Línea', 'Avión', 'Contraparte', 'Concepto', 'Categoría', 'Tipo de gasto', 'Moneda', 'Importe sin IVA', 'Folio']]
+    .concat([...todas].sort((a, b) => String(a.Fecha).localeCompare(String(b.Fecha))).map((r) => [r.Fecha, r.Tipo, r.LineaNegocio, r.Matricula, r.Contraparte, r.Concepto, r.Categoria, r.TipoGasto, monedaDe(r), r.MontoSinIVA, r.IDOrigen]));
+
+  const vuelos = [['Fecha', 'Avión', 'Origen', 'Destino', 'Horas (decimal)', 'Tiempo', 'Piloto', 'Copiloto', 'Cliente', 'Notas']]
+    .concat([...vuelosFiltrados()].sort((a, b) => a.Fecha.localeCompare(b.Fecha)).map((v) => [v.Fecha, v.Matricula, v.Origen, v.Destino, v.Horas, fmtHoras(v.Horas), v.Piloto, v.Copiloto, v.Cliente, v.Notas]));
+
+  const cph = datosCostoHora();
+  const costo = [['Mes', 'Avión', 'Horas (decimal)', 'Tiempo', 'Gasto variable', 'Costo por hora']];
+  cph.meses.forEach((mes, i) => cph.series.forEach((s2) => {
+    const p = s2.puntos[i];
+    if (p.horas || p.variable) costo.push([mes, s2.nombre, p.horas, fmtHoras(p.horas), p.variable, p.costo === null ? '' : p.costo]);
+  }));
+
+  const hoy = new Date();
+  const cobrar = [['Cliente', 'Factura', 'Vencimiento', 'Estado', 'Moneda', 'Importe sin IVA']].concat(
+    [...state.datos.porCobrar].sort((a, b) => String(a.Vencimiento).localeCompare(String(b.Vencimiento))).map((c) => {
+      const dias = Math.floor((hoy - new Date(String(c.Vencimiento) + 'T23:59:59')) / 86400000);
+      return [c.Cliente, c.Folio, c.Vencimiento, dias > 0 ? `Vencida hace ${dias} días` : `Vence en ${-dias} días`, c.Moneda, c.MontoSinIVA];
+    }));
+
+  return [
+    { nombre: 'Resumen', filas: resumen, encabezado: false },
+    { nombre: 'Movimientos', filas: movs, encabezado: true },
+    { nombre: 'Vuelos', filas: vuelos, encabezado: true },
+    { nombre: 'Costo por hora', filas: costo, encabezado: true },
+    { nombre: 'Por cobrar', filas: cobrar, encabezado: true },
+  ];
+}
+
+function exportarExcel() {
+  if (!state.datos) return;
+  const blob = crearXlsx(hojasExcel());
+  const nombre = `finanzas-jetmach-${state.anio === 'todos' ? 'todos' : state.anio}${state.mes === 'todos' ? '' : '-' + state.mes}.xlsx`;
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = nombre;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+
+function imprimirPdf() {
+  $('printInfo').textContent = `Finanzas Jet Mach · ${textoFiltros()} · ${new Date().toLocaleString('es-MX')}`;
+  window.print();
+}
+
+function activarExportar() {
+  $('exportExcel').addEventListener('click', exportarExcel);
+  $('exportPdf').addEventListener('click', imprimirPdf);
+}
+
 async function iniciar() {
   activarPestanas();
   activarVuelos();
+  activarBusqueda();
+  activarExportar();
   try {
     state.datos = normalizar(await cargarDatos());
   } catch (error) {
@@ -1502,7 +2310,7 @@ async function iniciar() {
   }
   const cuando = state.datos.actualizado ? new Date(state.datos.actualizado).toLocaleString('es-MX', { dateStyle: 'long', timeStyle: 'short' }) : '';
   $('statusText').textContent = state.datos.esEjemplo
-    ? 'Datos de ejemplo: las cifras no son reales'
+    ? (state.datos.etiqueta || 'Datos de ejemplo: las cifras no son reales')
     : `Última actualización: ${cuando}`;
   armarFiltros();
   dibujarPorCobrar();
