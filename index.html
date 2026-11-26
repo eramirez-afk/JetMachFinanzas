@@ -748,6 +748,10 @@ td small.sub { display: block; font-size: 11px; color: var(--muted); font-weight
 
 .sub-inline { font-size: 11px; color: var(--muted); font-weight: 400; margin-left: 4px; }
 
+/* Las tarjetas se quedan arriba aunque otra columna tenga más tarjetas */
+.summary-section { align-content: start; }
+.stacked-cards { align-content: start; }
+
 </style>
   </head>
   <body>
@@ -776,6 +780,15 @@ td small.sub { display: block; font-size: 11px; color: var(--muted); font-weight
               <option>Handling</option>
               <option>AOC</option>
               <option>Corporativo</option>
+            </select>
+          </label>
+          <label>
+            <span>Cifras</span>
+            <select id="unitFilter">
+              <option value="auto">Compactas (K y M)</option>
+              <option value="miles">En miles</option>
+              <option value="millones">En millones</option>
+              <option value="completo">Completas</option>
             </select>
           </label>
           <label>
@@ -1302,17 +1315,36 @@ const MESES = {
 const AVIONES_AOC = ['XADGL', 'XARHL', 'XABZN'];
 const LINEAS = ['Guarda', 'Handling', 'AOC', 'Corporativo'];
 
-const dinero = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
-const dolares = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
+/* Formato de cifras: completas, en miles (K), en millones (M) o compactas (automático) */
+const pesosExactos = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
+const dolaresExactos = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
+let unidad = 'auto';
+
+function formatoCifra(n, simbolo, exacto) {
+  const v = Number(n) || 0;
+  if (unidad === 'completo') return exacto.format(v);
+  const abs = Math.abs(v), signo = v < 0 ? '−' : '';
+  const num = (x, dec) => x.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: dec });
+  let u = unidad;
+  if (u === 'auto') u = abs >= 1e6 ? 'millones' : abs >= 1e4 ? 'miles' : 'completo';
+  if (u === 'completo') return exacto.format(v);
+  if (u === 'millones') return `${signo}${simbolo}${num(abs / 1e6, abs >= 1e7 ? 1 : 2)} M`;
+  return `${signo}${simbolo}${num(abs / 1e3, abs >= 1e5 ? 0 : 1)} K`;
+}
+/* dinero: cifras según la opción elegida. pesosExactos: siempre completas (costo por hora, ejes) */
+const dinero = { format: (n) => formatoCifra(n, '$', pesosExactos) };
+const dolares = { format: (n) => formatoCifra(n, 'US$', dolaresExactos) };
+/* Etiquetas sobre las barras: siempre compactas, sea cual sea la opción elegida */
+function cifraCorta(v) { const u = unidad; unidad = 'auto'; const t = dinero.format(v); unidad = u; return t; }
 
 /* Celda de moneda: etiqueta MXN o USD (sin conversión) */
 function celdaMoneda(r) {
   const m = String(r.Moneda || 'MXN').toUpperCase();
   return `<td><span class="moneda ${m === 'USD' ? 'usd' : 'mxn'}">${esc(m)}</span></td>`;
 }
-/* Importe en su propia moneda: pesos con $, dólares con US$ */
+/* Importe en su propia moneda y SIEMPRE completo (tablas de detalle): pesos con $, dólares con US$ */
 function importeConMoneda(r) {
-  return String(r.Moneda || 'MXN').toUpperCase() === 'USD' ? dolares.format(r.MontoSinIVA) : dinero.format(r.MontoSinIVA);
+  return String(r.Moneda || 'MXN').toUpperCase() === 'USD' ? dolaresExactos.format(r.MontoSinIVA) : pesosExactos.format(r.MontoSinIVA);
 }
 const $ = (id) => document.getElementById(id);
 const suma = (lista, f) => lista.reduce((total, x) => total + f(x), 0);
@@ -1415,6 +1447,14 @@ function armarFiltros() {
     AVIONES_AOC.map((m) => `<option value="${esc(m)}">${esc(m)}</option>`).join('');
 
   $('yearFilter').value = state.anio;
+  $('unitFilter').value = unidad;
+  $('unitFilter').addEventListener('change', () => {
+    unidad = $('unitFilter').value;
+    try { localStorage.setItem('jm_cifras', unidad); } catch (e) { /* sin almacenamiento */ }
+    dibujarPorCobrar();
+    dibujarCalidad();
+    dibujar();
+  });
   ['yearFilter', 'monthFilter', 'lineFilter', 'planeFilter'].forEach((id) => $(id).addEventListener('change', () => {
     state.anio = $('yearFilter').value;
     state.mes = $('monthFilter').value;
@@ -1525,8 +1565,8 @@ function dibujarBarras(idContenedor, valores, etiquetas, alt) {
   if (!valores.length) { contenedor.innerHTML = '<p class="vacio-mensaje">No hay movimientos con estos filtros.</p>'; return; }
   const maximo = Math.max(...valores, 1);
   contenedor.innerHTML = `<div class="chart-bar-group">${valores.map((v, i) => `
-      <div class="chart-bar-col ${alt ? 'alt' : ''}" data-label="${esc(etiquetas[i])}" data-value="${v > 0 ? '$' + Math.round(v / 1000) + ' mil' : ''}"
-           style="height:${Math.max(v / maximo * 100, 4)}%" title="${esc(etiquetas[i])}: ${dinero.format(v)}"></div>`).join('')}</div>`;
+      <div class="chart-bar-col ${alt ? 'alt' : ''}" data-label="${esc(etiquetas[i])}" data-value="${v > 0 ? cifraCorta(v) : ''}"
+           style="height:${Math.max(v / maximo * 100, 4)}%" title="${esc(etiquetas[i])}: ${pesosExactos.format(v)}"></div>`).join('')}</div>`;
 }
 
 function dibujarMeses(filasTodosMeses) {
@@ -1624,8 +1664,8 @@ function dibujarPorCobrar() {
   pintar('corriente', 'okValue', 'okMeta');
 
   const tt = totales('todas');
-  $('receivableTotal').innerHTML = `<tr><td colspan="4">Total por cobrar en pesos</td><td class="num">${dinero.format(tt.mxn)}</td></tr>` +
-    (tt.tieneUsd ? `<tr><td colspan="4">Total por cobrar en dólares</td><td class="num">${dolares.format(tt.usd)}</td></tr>` : '');
+  $('receivableTotal').innerHTML = `<tr><td colspan="4">Total por cobrar en pesos</td><td class="num">${pesosExactos.format(tt.mxn)}</td></tr>` +
+    (tt.tieneUsd ? `<tr><td colspan="4">Total por cobrar en dólares</td><td class="num">${dolaresExactos.format(tt.usd)}</td></tr>` : '');
 }
 
 /* ---------- Vuelos AOC ---------- */
@@ -1673,7 +1713,7 @@ function dibujarVuelos(filas, todas) {
   $('flightHours').textContent = horas > 0 ? fmtHoras(horas) : '—';
   $('flightCount').textContent = `${vuelos.length} ${vuelos.length === 1 ? 'vuelo capturado' : 'vuelos capturados'}` +
     (mesesMensuales ? `, más ${mesesMensuales} ${mesesMensuales === 1 ? 'mes' : 'meses'} con horas del total mensual` : '');
-  $('flightCostPerHour').textContent = horas > 0 ? dinero.format(gastosVariables / horas) : '—';
+  $('flightCostPerHour').textContent = horas > 0 ? pesosExactos.format(gastosVariables / horas) : '—';
   const res = $('flightResult');
   res.textContent = dinero.format(resultado);
   res.className = clase(resultado);
@@ -2013,10 +2053,10 @@ function dibujarCostoHora() {
   $('cphTable').innerHTML = meses.length ? meses.map((mes, i) => `<tr><td>${nombreMes(mes)} ${mes.slice(0, 4)}</td>${series.map((s2) => {
     const p = s2.puntos[i];
     return p.costo === null ? '<td class="num"><span class="vacio">—</span></td>'
-      : `<td class="num">${dinero.format(p.costo)}<small class="sub">${fmtHoras(p.horas)}</small></td>`;
+      : `<td class="num">${pesosExactos.format(p.costo)}<small class="sub">${fmtHoras(p.horas)}</small></td>`;
   }).join('')}</tr>`).join('') : '<tr><td colspan="4" class="vacio-mensaje">Todavía no hay horas ni gastos variables de los aviones.</td></tr>';
   $('cphLegend').innerHTML = series.map((s2) => `<span><i style="background:${s2.color}"></i>${esc(s2.nombre)}</span>`).join('');
-  dibujarLineas('cphChart', meses.map((m) => nombreMes(m).slice(0, 3)), series, (p) => p.costo, (p) => `${dinero.format(p.costo)}/h · ${fmtHoras(p.horas)}`);
+  dibujarLineas('cphChart', meses.map((m) => nombreMes(m).slice(0, 3)), series, (p) => p.costo, (p) => `${pesosExactos.format(p.costo)}/h · ${fmtHoras(p.horas)}`);
 }
 
 /* Gráfica de líneas en SVG: 2 px, marcadores con aro blanco, etiqueta directa al final, tooltip al pasar el cursor */
@@ -2033,7 +2073,7 @@ function dibujarLineas(idContenedor, etiquetas, series, valorDe, textoDe) {
   const y = (v) => M.t + ih - v / tope * ih;
   let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Costo por hora por mes, una línea por avión">`;
   for (let v = 0; v <= tope + 0.001; v += paso) {
-    svg += `<line class="rejilla" x1="${M.l}" x2="${W - M.r}" y1="${y(v)}" y2="${y(v)}"/><text class="eje" x="${M.l - 8}" y="${y(v) + 4}" text-anchor="end">${dinero.format(v)}</text>`;
+    svg += `<line class="rejilla" x1="${M.l}" x2="${W - M.r}" y1="${y(v)}" y2="${y(v)}"/><text class="eje" x="${M.l - 8}" y="${y(v) + 4}" text-anchor="end">${pesosExactos.format(v)}</text>`;
   }
   etiquetas.forEach((e, i) => { svg += `<text class="eje" x="${x(i)}" y="${H - 10}" text-anchor="middle">${esc(e)}</text>`; });
   svg += '<line id="cursorV" class="rejilla" stroke="#9fb3ab" y1="' + M.t + '" y2="' + (M.t + ih) + '" style="display:none"/>';
@@ -2298,6 +2338,7 @@ function activarExportar() {
 }
 
 async function iniciar() {
+  try { unidad = ['auto', 'miles', 'millones', 'completo'].includes(localStorage.getItem('jm_cifras')) ? localStorage.getItem('jm_cifras') : 'auto'; } catch (e) { unidad = 'auto'; }
   activarPestanas();
   activarVuelos();
   activarBusqueda();
